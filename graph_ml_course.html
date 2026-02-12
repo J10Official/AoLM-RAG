@@ -1,0 +1,631 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #1a1a2e;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    
+        <style>
+            #toolbar-toggle {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                z-index: 9999;
+                background: #3498db;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            }
+            #toolbar-toggle:hover {
+                background: #2980b9;
+            }
+            .card-header.hidden {
+                display: none !important;
+            }
+            .toolbar-hidden #mynetwork {
+                height: 100vh !important;
+            }
+            .toolbar-hidden .card {
+                border: none !important;
+            }
+            #mastery-legend {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                z-index: 9999;
+                background: rgba(26, 26, 46, 0.95);
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 12px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+                max-width: 200px;
+            }
+            #mastery-legend h4 {
+                margin: 0 0 10px 0;
+                font-size: 14px;
+                border-bottom: 1px solid #444;
+                padding-bottom: 5px;
+            }
+            .legend-item {
+                display: flex;
+                align-items: center;
+                margin: 5px 0;
+            }
+            .legend-color {
+                width: 20px;
+                height: 12px;
+                margin-right: 8px;
+                border-radius: 2px;
+            }
+            .legend-gradient {
+                width: 100px;
+                height: 12px;
+                margin-right: 8px;
+                border-radius: 2px;
+            }
+            .toolbar-hidden #mastery-legend {
+                display: none;
+            }
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="stream_computer_science_and_engineering">stream_computer_science_and_engineering</option>
+                                
+                                    <option value="course_106108841">course_106108841</option>
+                                
+                                    <option value="lecture_106108841_w1_l1">lecture_106108841_w1_l1</option>
+                                
+                                    <option value="lecture_106108841_w1_l2">lecture_106108841_w1_l2</option>
+                                
+                                    <option value="lecture_106108841_w1_l3">lecture_106108841_w1_l3</option>
+                                
+                                    <option value="lecture_106108841_w1_l4">lecture_106108841_w1_l4</option>
+                                
+                                    <option value="lecture_106108841_w1_l5">lecture_106108841_w1_l5</option>
+                                
+                                    <option value="lecture_106108841_w1_l6">lecture_106108841_w1_l6</option>
+                                
+                                    <option value="lecture_106108841_w1_l7">lecture_106108841_w1_l7</option>
+                                
+                                    <option value="lecture_106108841_w2_l8">lecture_106108841_w2_l8</option>
+                                
+                                    <option value="lecture_106108841_w2_l9">lecture_106108841_w2_l9</option>
+                                
+                                    <option value="lecture_106108841_w2_l10">lecture_106108841_w2_l10</option>
+                                
+                                    <option value="lecture_106108841_w2_l11">lecture_106108841_w2_l11</option>
+                                
+                                    <option value="lecture_106108841_w2_l12">lecture_106108841_w2_l12</option>
+                                
+                                    <option value="lecture_106108841_w2_l13">lecture_106108841_w2_l13</option>
+                                
+                                    <option value="lecture_106108841_w2_l14">lecture_106108841_w2_l14</option>
+                                
+                                    <option value="lecture_106108841_w3_l15">lecture_106108841_w3_l15</option>
+                                
+                                    <option value="lecture_106108841_w3_l16">lecture_106108841_w3_l16</option>
+                                
+                                    <option value="lecture_106108841_w3_l17">lecture_106108841_w3_l17</option>
+                                
+                                    <option value="lecture_106108841_w3_l18">lecture_106108841_w3_l18</option>
+                                
+                                    <option value="lecture_106108841_w3_l19">lecture_106108841_w3_l19</option>
+                                
+                                    <option value="lecture_106108841_w3_l20">lecture_106108841_w3_l20</option>
+                                
+                                    <option value="lecture_106108841_w3_l21">lecture_106108841_w3_l21</option>
+                                
+                                    <option value="lecture_106108841_w4_l22">lecture_106108841_w4_l22</option>
+                                
+                                    <option value="lecture_106108841_w4_l23">lecture_106108841_w4_l23</option>
+                                
+                                    <option value="lecture_106108841_w4_l24">lecture_106108841_w4_l24</option>
+                                
+                                    <option value="lecture_106108841_w4_l25">lecture_106108841_w4_l25</option>
+                                
+                                    <option value="lecture_106108841_w4_l26">lecture_106108841_w4_l26</option>
+                                
+                                    <option value="lecture_106108841_w4_l27">lecture_106108841_w4_l27</option>
+                                
+                                    <option value="lecture_106108841_w4_l28">lecture_106108841_w4_l28</option>
+                                
+                                    <option value="lecture_106108841_w5_l29">lecture_106108841_w5_l29</option>
+                                
+                                    <option value="lecture_106108841_w5_l30">lecture_106108841_w5_l30</option>
+                                
+                                    <option value="concept_machine_learning">concept_machine_learning</option>
+                                
+                                    <option value="concept_supervised_learning">concept_supervised_learning</option>
+                                
+                                    <option value="concept_unsupervised_learning">concept_unsupervised_learning</option>
+                                
+                                    <option value="concept_gradient_descent">concept_gradient_descent</option>
+                                
+                                    <option value="concept_neural_network">concept_neural_network</option>
+                                
+                                    <option value="concept_overfitting">concept_overfitting</option>
+                                
+                                    <option value="concept_function_approximation">concept_function_approximation</option>
+                                
+                                    <option value="concept_probabilistic_viewpoint">concept_probabilistic_viewpoint</option>
+                                
+                                    <option value="concept_random_variable">concept_random_variable</option>
+                                
+                                    <option value="concept_probability_distribution">concept_probability_distribution</option>
+                                
+                                    <option value="concept_vector_valued_function">concept_vector_valued_function</option>
+                                
+                                    <option value="concept_deterministic_worldview">concept_deterministic_worldview</option>
+                                
+                                    <option value="concept_statistical_method">concept_statistical_method</option>
+                                
+                                    <option value="concept_sample_space">concept_sample_space</option>
+                                
+                                    <option value="concept_probability_measure">concept_probability_measure</option>
+                                
+                                    <option value="concept_random_experiment">concept_random_experiment</option>
+                                
+                                    <option value="concept_measure_theory">concept_measure_theory</option>
+                                
+                                    <option value="concept_lebesgue_measure">concept_lebesgue_measure</option>
+                                
+                                    <option value="concept_probability_theory">concept_probability_theory</option>
+                                
+                                    <option value="concept_sigma_algebra">concept_sigma_algebra</option>
+                                
+                                    <option value="concept_event">concept_event</option>
+                                
+                                    <option value="concept_likelihood">concept_likelihood</option>
+                                
+                                    <option value="concept_probability_triplet">concept_probability_triplet</option>
+                                
+                                    <option value="concept_push_forward_measure">concept_push_forward_measure</option>
+                                
+                                    <option value="concept_distribution_function">concept_distribution_function</option>
+                                
+                                    <option value="concept_borel_sigma_algebra">concept_borel_sigma_algebra</option>
+                                
+                                    <option value="concept_real_valued_function">concept_real_valued_function</option>
+                                
+                                    <option value="concept_dimensional_real_space">concept_dimensional_real_space</option>
+                                
+                                    <option value="concept_measurable_subset">concept_measurable_subset</option>
+                                
+                                    <option value="concept_vector_valued_random_variable">concept_vector_valued_random_variable</option>
+                                
+                                    <option value="concept_joint_distribution">concept_joint_distribution</option>
+                                
+                                    <option value="concept_conditional_distribution">concept_conditional_distribution</option>
+                                
+                                    <option value="concept_event_space">concept_event_space</option>
+                                
+                                    <option value="concept_scalar_valued_random_variable">concept_scalar_valued_random_variable</option>
+                                
+                                    <option value="concept_marginal_distribution">concept_marginal_distribution</option>
+                                
+                                    <option value="concept_conditional_probability">concept_conditional_probability</option>
+                                
+                                    <option value="concept_cumulative_distribution_function">concept_cumulative_distribution_function</option>
+                                
+                                    <option value="concept_range_space">concept_range_space</option>
+                                
+                                    <option value="concept_independent_and_identically_distributed_iid">concept_independent_and_identically_distributed_iid</option>
+                                
+                                    <option value="concept_data_point">concept_data_point</option>
+                                
+                                    <option value="concept_dimensional_vector">concept_dimensional_vector</option>
+                                
+                                    <option value="concept_probability_density_function">concept_probability_density_function</option>
+                                
+                                    <option value="concept_iid_assumption">concept_iid_assumption</option>
+                                
+                                    <option value="concept_statistical_independence">concept_statistical_independence</option>
+                                
+                                    <option value="concept_identically_distributed_random_variables">concept_identically_distributed_random_variables</option>
+                                
+                                    <option value="concept_generative_modeling">concept_generative_modeling</option>
+                                
+                                    <option value="concept_discriminative_modeling">concept_discriminative_modeling</option>
+                                
+                                    <option value="concept_empirical_risk_minimization">concept_empirical_risk_minimization</option>
+                                
+                                    <option value="concept_distribution_estimation">concept_distribution_estimation</option>
+                                
+                                    <option value="concept_independent_and_identically_distributed">concept_independent_and_identically_distributed</option>
+                                
+                                    <option value="concept_generative_model">concept_generative_model</option>
+                                
+                                    <option value="concept_discriminative_model">concept_discriminative_model</option>
+                                
+                                    <option value="concept_classification_problem">concept_classification_problem</option>
+                                
+                                    <option value="concept_regression_problem">concept_regression_problem</option>
+                                
+                                    <option value="concept_density_function">concept_density_function</option>
+                                
+                                    <option value="concept_continuous_random_variable">concept_continuous_random_variable</option>
+                                
+                                    <option value="concept_probability_mass_function">concept_probability_mass_function</option>
+                                
+                                    <option value="concept_conditional_density">concept_conditional_density</option>
+                                
+                                    <option value="concept_joint_density">concept_joint_density</option>
+                                
+                                    <option value="concept_marginal_density">concept_marginal_density</option>
+                                
+                                    <option value="concept_density_estimation">concept_density_estimation</option>
+                                
+                                    <option value="concept_non_negativity">concept_non_negativity</option>
+                                
+                                    <option value="concept_parametric_functional_form">concept_parametric_functional_form</option>
+                                
+                                    <option value="concept_distance_metric">concept_distance_metric</option>
+                                
+                                    <option value="concept_optimization_problem">concept_optimization_problem</option>
+                                
+                                    <option value="concept_risk_minimization_framework">concept_risk_minimization_framework</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+              <div id="filter-menu" class="card-header">
+                <div class="row no-gutters">
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'item')"
+                            id="select-item"
+                        >
+                        <option value="">Select a network item</option>
+                        <option value="edge">edge</option>
+                        <option value="node">node</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'property')"
+                            id="select-property"
+                        >
+                        <option value="">Select a property...</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="select-value"
+                        >
+                        <option value="">Select value(s)...</option>
+                    </select>
+                  </div>
+                  <div class="col-1 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="highlightFilter(filter);">Filter</button>
+                  </div>
+                  <div class="col-2 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="clearFilter(true)">Reset Selection</button>
+                  </div>
+                </div>
+              </div>
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+                  // explicitly using onItemAdd and this function as we need to save multiple values
+                  let updateValueFilter = function() {
+                      return function () {
+                      filter['value'].push(arguments[0])
+                      }
+                  }
+
+                  let valueControl = new TomSelect("#select-value",{
+                      maxItems: null,
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: updateValueFilter()
+                  });
+
+                  let addValues = function() {
+                      return function () {
+                          // clear the current value options and add the selected attribute values
+                          // tom-select handles duplicates
+                          let selectedProperty = arguments[0];
+                          valueControl.clear();
+                          valueControl.clearOptions();
+                          filter['value'] = []
+                          if (filter['item'] === 'node') {
+                              for (let each in allNodes) {
+                                  valueControl.addOption({
+                                      id:allNodes[each][selectedProperty],
+                                      title:allNodes[each][selectedProperty]
+                                  })
+                              }
+                          }
+                          else if (filter['item'] === 'edge') {
+                              for (let each in allEdges) {
+                                  valueControl.addOption({
+                                      id:allEdges[each][selectedProperty],
+                                      title:allEdges[each][selectedProperty]
+                                  })
+                              }
+                          }
+                      }
+                  };
+
+                  let propControl = new TomSelect("#select-property",{
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addValues()
+                  });
+
+                  let addProperties = function() {
+                      return function () {
+                          // loops through the selected network item and adds the attributes to dropdown
+                          // tom-select handles duplicates
+                          clearFilter(false)
+                          if (arguments[0] === 'edge') {
+                              for (let each in allEdges) {
+                                  if (allEdges.hasOwnProperty(each)) {
+                                      for (let eachProp in allEdges[each]) {
+                                          if (allEdges[each].hasOwnProperty(eachProp)) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          else if (arguments[0] === 'node') {
+                              for (let each in allNodes) {
+                                  if (allNodes.hasOwnProperty(each)) {
+                                      for (let eachProp in allNodes[each]) {
+                                          if (allNodes[each].hasOwnProperty(eachProp)
+                                              && (eachProp !== 'hidden' && eachProp !== 'savedLabel'
+                                                  && eachProp !== 'hiddenLabel')) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  };
+
+                  let itemControl = new TomSelect("#select-item",{
+                      create: false,
+                      sortField:{
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addProperties()
+                  });
+
+                  function clearFilter(reset) {
+                      // utility function to clear all the selected filter options
+                      // if reset is set to true, the existing filter will be removed
+                      // else, only the dropdown options are cleared
+                      propControl.clear();
+                      propControl.clearOptions();
+                      valueControl.clear();
+                      valueControl.clearOptions();
+                      filter = {
+                          item : '',
+                          property : '',
+                          value : []
+                      }
+                      if (reset) {
+                          itemControl.clear();
+                          filterHighlight({nodes: []})
+                      }
+                  }
+
+                  function updateFilter(value, key) {
+                      // key could be 'item' or 'property' and value is as selected in dropdown
+                      filter[key] = value
+                  }
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"font": {"color": "white"}, "group": "V_stream", "id": "stream_computer_science_and_engineering", "label": "Computer Science and Engineeri...", "shape": "dot", "size": 50, "title": "\u003cb\u003eComputer Science and Engineering\u003c/b\u003e\u003cbr\u003eType: V_stream\u003cbr\u003eslug: computer_science_and_engineering"}, {"font": {"color": "white"}, "group": "V_course", "id": "course_106108841", "label": "Mathematical Foundations of Ma...", "shape": "dot", "size": 35, "title": "\u003cb\u003eMathematical Foundations of Machine Learning\u003c/b\u003e\u003cbr\u003eType: V_course\u003cbr\u003ecourse_id: noc26-cs02\u003cbr\u003enptel_url: https://nptel.ac.in/courses/106108841\u003cbr\u003enptel_id: 106108841\u003cbr\u003eabstract: NOC: Mathematical Foundations of Machine Learning, IISc Bangalore\nProf. Prathosh A P Course Duration :\nJan-Apr 2026\nEnrollment :\n2025-11-17 to 2026-01-26\nExam Registration :\n2025-12-13 to 2026-02-13\nExam Date :\n2026-04-25\nCourse Abstract\n\nThis course introduces the mathematical foundations of machine learning, covering risk minimization, density estimation, regularization, and generalization. Students learn classical methods such as linear models, kernel machines, SVMs, decision trees, and ensemble techniques, as well as modern deep learning approaches including MLPs, CNNs, RNNs, and Transformers. Probabilistic models, clustering, PCA, and the EM algorithm are presented to build a solid grounding in unsupervised learning. The course concludes with an introduction to generative models (GANs, VAEs) as a bridge to advanced topics. Emphasis is placed on both theory and practice, with coding assignments connecting math to real-world ML applications. Course Duration :\nJan-Apr 2026\nEnrollment :\n2025-11-17 to 2026-01-26\nExam Registration :\n2025-12-13 to 2026-02-13\nExam Date :\n2026-04-25\u003cbr\u003eprofessor: Prof. Prathosh A P\u003cbr\u003einstitute: IISc Bangalore\u003cbr\u003eduration: 12 weeks\u003cbr\u003estream_id: stream_computer_science_and_engineering"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w1_l1", "label": "Overview of Function Approxima...", "shape": "dot", "size": 20, "title": "\u003cb\u003eOverview of Function Approximation\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 11.0%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 1\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=G2h7nD_Stxg\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w1_l2", "label": "Recap of Probability Theory - ...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory - 1, Part 1\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.0%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 2\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=YLx3hBqt28k\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w1_l3", "label": "Recap of Probability Theory - ...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory - 1, Part 2\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.0%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 3\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=DaBw9qBpt2s\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w1_l4", "label": "Recap of Probability Theory - ...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory - 1, Part 3\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.8%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 4\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=0R6Agp4tqSU\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w1_l5", "label": "Recap of Probability Theory Pa...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory Part 2\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 17.0%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 5\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=R69wew8RrPo\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w1_l6", "label": "Understanding a Chest X-Ray  a...", "shape": "dot", "size": 20, "title": "\u003cb\u003eUnderstanding a Chest X-Ray  as Sample from Distribution\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.0%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 6\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=bdcvsSNAHIk\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w1_l7", "label": "IID Assumption", "shape": "dot", "size": 20, "title": "\u003cb\u003eIID Assumption\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.0%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 7\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=C83xmx80tMo\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w2_l8", "label": "Distribution Estimation", "shape": "dot", "size": 20, "title": "\u003cb\u003eDistribution Estimation\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 8.4%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 8\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=aYb8KG9JYsg\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w2_l9", "label": "Density Function", "shape": "dot", "size": 20, "title": "\u003cb\u003eDensity Function\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 18.7%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 9\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=_QrezNPmxDk\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w2_l10", "label": "Challenge With ML", "shape": "dot", "size": 20, "title": "\u003cb\u003eChallenge With ML\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 21.6%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 10\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=767MLwniPKE\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w2_l11", "label": "Tutorial 1 : Introduction to P...", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 1 : Introduction to Python Basics\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 6.7%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 11\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=cF025BechXo\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w2_l12", "label": "Tutorial 2 : Simple Problem so...", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 2 : Simple Problem solving in Probability Theory\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 1.1%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 12\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=nGwjqvLHguA\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w2_l13", "label": "Entropy", "shape": "dot", "size": 20, "title": "\u003cb\u003eEntropy\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.0%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 13\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=P6wjLz4dRTs\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w2_l14", "label": "Kullback-Leibler (KL) Divergen...", "shape": "dot", "size": 20, "title": "\u003cb\u003eKullback-Leibler (KL) Divergence\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.6%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 14\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=ihkGbIdbbxc\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w3_l15", "label": "Minimization of KL Divergence", "shape": "dot", "size": 20, "title": "\u003cb\u003eMinimization of KL Divergence\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.0%\u003cbr\u003eweek: 3\u003cbr\u003electure_num: 15\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=Ij4p5hLbfo4\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w3_l16", "label": "Example of ML Estimate", "shape": "dot", "size": 20, "title": "\u003cb\u003eExample of ML Estimate\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.0%\u003cbr\u003eweek: 3\u003cbr\u003electure_num: 16\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=mEpXOyLwbxA\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w3_l17", "label": "Risk Minimization Framework", "shape": "dot", "size": 20, "title": "\u003cb\u003eRisk Minimization Framework\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 29.5%\u003cbr\u003eweek: 3\u003cbr\u003electure_num: 17\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=jXCqrFVGwoU\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w3_l18", "label": "Bayes Classifier", "shape": "dot", "size": 20, "title": "\u003cb\u003eBayes Classifier\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 12.5%\u003cbr\u003eweek: 3\u003cbr\u003electure_num: 18\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=-y3SSAIhD4Y\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w3_l19", "label": "Tutorial 3 : Risk Minimization...", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 3 : Risk Minimization Framework\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 15.8%\u003cbr\u003eweek: 3\u003cbr\u003electure_num: 19\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=AQ3einJJrr0\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w3_l20", "label": "MLE for Gaussian Distribution", "shape": "dot", "size": 20, "title": "\u003cb\u003eMLE for Gaussian Distribution\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 22.3%\u003cbr\u003eweek: 3\u003cbr\u003electure_num: 20\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=tF-RrzUnnYA\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w3_l21", "label": "MLE for Generalized Discrete R...", "shape": "dot", "size": 20, "title": "\u003cb\u003eMLE for Generalized Discrete Random Variable\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 5.1%\u003cbr\u003eweek: 3\u003cbr\u003electure_num: 21\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=j7jbpicYdik\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w4_l22", "label": "Density Estimation for Mixed D...", "shape": "dot", "size": 20, "title": "\u003cb\u003eDensity Estimation for Mixed Distribution\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.3%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 22\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=3UmgTSDgG5Q\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w4_l23", "label": "Latent Variable Models", "shape": "dot", "size": 20, "title": "\u003cb\u003eLatent Variable Models\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.2%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 23\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=J9QNr4UrB2c\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w4_l24", "label": "MLE for Latent Variable Models", "shape": "dot", "size": 20, "title": "\u003cb\u003eMLE for Latent Variable Models\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.2%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 24\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=BMj-TWtK83A\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w4_l25", "label": "Expectation Maximization Algor...", "shape": "dot", "size": 20, "title": "\u003cb\u003eExpectation Maximization Algorithm\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 0.6%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 25\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=ejma0iH1pXE\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w4_l26", "label": "Tutorial 4 : Minmax Classifier", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 4 : Minmax Classifier\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 17.3%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 26\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=ENpzs2ycXJE\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w4_l27", "label": "Tutorial 5 :  Neyman Pearson C...", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 5 :  Neyman Pearson Classifier\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 15.6%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 27\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=8esVIly2TZY\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w4_l28", "label": "Tutorial 6 : Example of NP Cla...", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 6 : Example of NP Classifier, ROC Curve\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 6.5%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 28\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=JwQEaTqyBDw\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w5_l29", "label": "Tutorial 7A : MLE for Gaussian...", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 7A : MLE for Gaussian Distribution\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.3%\u003cbr\u003eweek: 5\u003cbr\u003electure_num: 29\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=XA3UiD8zEF8\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_lecture", "id": "lecture_106108841_w5_l30", "label": "Tutorial 7B : MLE for Generali...", "shape": "dot", "size": 20, "title": "\u003cb\u003eTutorial 7B : MLE for Generalized Discrete Distribution\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 1.4%\u003cbr\u003eweek: 5\u003cbr\u003electure_num: 30\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=o5697P6KZoc\u003cbr\u003ecourse_id: course_106108841"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_machine_learning", "label": "Machine Learning", "shape": "dot", "size": 15, "title": "\u003cb\u003eMachine Learning\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 12.4%\u003cbr\u003edescription: A subset of artificial intelligence that enables systems to learn from data without being explicitly programmed.\u003cbr\u003ekeywords: [\u0027models\u0027, \u0027statistical\u0027, \u0027prediction\u0027, \u0027programming\u0027, \u0027ai\u0027, \u0027data\u0027, \u0027machine learning\u0027, \u0027learning\u0027, \u0027algorithm\u0027, \u0027artificial\u0027, \u0027experience\u0027, \u0027intelligence\u0027, \u0027algorithms\u0027, \u0027machine\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108840_w1_l1\u0027, \u0027lecture_106103843_w2_l12\u0027, \u0027lecture_106104449_w1_l3\u0027, \u0027lecture_106104449_w2_l10\u0027, \u0027lecture_106108841_w2_l10\u0027, \u0027lecture_106103843_w1_l1\u0027, \u0027lecture_106108229_w1_l2\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_supervised_learning", "label": "Supervised Learning", "shape": "dot", "size": 15, "title": "\u003cb\u003eSupervised Learning\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A type of machine learning where the model is trained on labeled data to make predictions.\u003cbr\u003ekeywords: [\u0027model\u0027, \u0027mapping\u0027, \u0027labeled data\u0027, \u0027supervised\u0027, \u0027machine learning\u0027, \u0027learning\u0027, \u0027training\u0027, \u0027labeled\u0027, \u0027data\u0027, \u0027supervised learning\u0027, \u0027machine\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108840_w1_l1\u0027, \u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106103843_w1_l1\u0027, \u0027lecture_106103843_w1_l2\u0027, \u0027lecture_106103843_w1_l6\u0027, \u0027lecture_106103843_w2_l9\u0027, \u0027lecture_106103220_w4_l28\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_unsupervised_learning", "label": "Unsupervised Learning", "shape": "dot", "size": 15, "title": "\u003cb\u003eUnsupervised Learning\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A type of machine learning where the model is trained on unlabeled data to discover patterns.\u003cbr\u003ekeywords: [\u0027unlabeled\u0027, \u0027unlabeled data\u0027, \u0027unsupervised learning\u0027, \u0027machine learning\u0027, \u0027learning\u0027, \u0027patterns\u0027, \u0027clustering\u0027, \u0027data\u0027, \u0027unsupervised\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108840_w1_l1\u0027, \u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106103843_w1_l1\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_gradient_descent", "label": "Gradient Descent", "shape": "dot", "size": 15, "title": "\u003cb\u003eGradient Descent\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: An optimization algorithm used to minimize the loss function in machine learning models.\u003cbr\u003ekeywords: [\u0027descent\u0027, \u0027loss\u0027, \u0027gradient\u0027, \u0027error minimization\u0027, \u0027function\u0027, \u0027optimization\u0027, \u0027algorithm\u0027, \u0027gradient descent\u0027, \u0027minimization\u0027, \u0027machine\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108840_w1_l7\u0027, \u0027lecture_106103843_w1_l3\u0027, \u0027lecture_106103843_w1_l4\u0027, \u0027lecture_106104449_w2_l10\u0027, \u0027lecture_106108841_w2_l10\u0027, \u0027lecture_106103843_w1_l6\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_neural_network", "label": "Neural Network", "shape": "dot", "size": 15, "title": "\u003cb\u003eNeural Network\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A machine learning model composed of layers of interconnected nodes (neurons) that process and transmit information.\u003cbr\u003ekeywords: [\u0027model\u0027, \u0027computational\u0027, \u0027network\u0027, \u0027learning\u0027, \u0027layers\u0027, \u0027neural\u0027, \u0027machine\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108840_w1_l7\u0027, \u0027lecture_106108841_w2_l10\u0027, \u0027lecture_106103843_w2_l9\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_overfitting", "label": "Overfitting", "shape": "dot", "size": 15, "title": "\u003cb\u003eOverfitting\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: When a model learns the noise and random variations in the training data, resulting in poor generalization to new data\u003cbr\u003ekeywords: [\u0027model\u0027, \u0027dataset\u0027, \u0027networks\u0027, \u0027complexity\u0027, \u0027generalization\u0027, \u0027noise\u0027, \u0027machine learning\u0027, \u0027training\u0027, \u0027training data\u0027, \u0027overfitting\u0027, \u0027learning\u0027, \u0027neural\u0027, \u0027model complexity\u0027, \u0027data\u0027, \u0027random variations\u0027, \u0027machine\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108840_w2_l9\u0027, \u0027lecture_106108840_w2_l14\u0027, \u0027lecture_106108840_w3_l19\u0027, \u0027lecture_106108841_w1_l1\u0027, \u0027lecture_106108841_w3_l17\u0027, \u0027lecture_106103843_w1_l5\u0027, \u0027lecture_106103843_w2_l9\u0027, \u0027lecture_106103843_w3_l16\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_function_approximation", "label": "Function Approximation", "shape": "dot", "size": 15, "title": "\u003cb\u003eFunction Approximation\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A problem of estimating an unknown function that maps inputs to outputs based on given observations.\u003cbr\u003ekeywords: [\u0027function\u0027, \u0027approximation\u0027, \u0027estimation\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_probabilistic_viewpoint", "label": "Probabilistic Viewpoint", "shape": "dot", "size": 15, "title": "\u003cb\u003eProbabilistic Viewpoint\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A framework for understanding machine learning algorithms based on probability theory and statistical methods.\u003cbr\u003ekeywords: [\u0027probabilistic\u0027, \u0027viewpoint\u0027, \u0027probability\u0027, \u0027statistics\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_random_variable", "label": "Random Variable", "shape": "dot", "size": 15, "title": "\u003cb\u003eRandom Variable\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A deterministic function that maps a sample space to real values, used to model uncertainty in machine learning.\u003cbr\u003ekeywords: [\u0027chance\u0027, \u0027probability distribution\u0027, \u0027random variable\u0027, \u0027sample\u0027, \u0027statistics\u0027, \u0027function\u0027, \u0027numerical\u0027, \u0027chance events\u0027, \u0027value\u0027, \u0027real numbers\u0027, \u0027experiment\u0027, \u0027random\u0027, \u0027variable\u0027, \u0027probability\u0027, \u0027sample space\u0027, \u0027event\u0027, \u0027space\u0027, \u0027events\u0027, \u0027mathematics\u0027, \u0027outcome\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027, \u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106104233_w2_l8\u0027, \u0027lecture_106104233_w2_l9\u0027, \u0027lecture_106104233_w2_l10\u0027, \u0027lecture_106104233_w2_l13\u0027, \u0027lecture_106104233_w4_l28\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_probability_distribution", "label": "Probability Distribution", "shape": "dot", "size": 15, "title": "\u003cb\u003eProbability Distribution\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A function that describes the probability of different values or ranges of values of a random variable.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027outcomes\u0027, \u0027statistics\u0027, \u0027experiment\u0027, \u0027function\u0027, \u0027random variable\u0027, \u0027random\u0027, \u0027variable\u0027, \u0027probability\u0027, \u0027mathematics\u0027, \u0027outcome\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027, \u0027lecture_106106221_w1_l4\u0027, \u0027lecture_106101360_w3_l17\u0027, \u0027lecture_106101360_w5_l24\u0027, \u0027lecture_106104233_w1_l4\u0027, \u0027lecture_106108229_w1_l7\u0027, \u0027lecture_106101360_w9_l46\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_vector_valued_function", "label": "Vector Valued Function", "shape": "dot", "size": 15, "title": "\u003cb\u003eVector Valued Function\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 12.6%\u003cbr\u003edescription: A function that takes a vector as input and returns a vector as output.\u003cbr\u003ekeywords: [\u0027vector\u0027, \u0027valued\u0027, \u0027function\u0027, \u0027mathematics\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_deterministic_worldview", "label": "Deterministic Worldview", "shape": "dot", "size": 15, "title": "\u003cb\u003eDeterministic Worldview\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 97.0%\u003cbr\u003edescription: A framework for understanding machine learning algorithms based on deterministic mathematical models.\u003cbr\u003ekeywords: [\u0027deterministic\u0027, \u0027worldview\u0027, \u0027mathematics\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_statistical_method", "label": "Statistical Method", "shape": "dot", "size": 15, "title": "\u003cb\u003eStatistical Method\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A method for making decisions or predictions based on data and statistical models.\u003cbr\u003ekeywords: [\u0027statistical\u0027, \u0027method\u0027, \u0027data\u0027, \u0027modeling\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_sample_space", "label": "Sample Space", "shape": "dot", "size": 15, "title": "\u003cb\u003eSample Space\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: The set of all possible outcomes of a random experiment.\u003cbr\u003ekeywords: [\u0027space\u0027, \u0027random experiment\u0027, \u0027experiment\u0027, \u0027probability\u0027, \u0027sample\u0027, \u0027outcome\u0027, \u0027sample space\u0027, \u0027event\u0027, \u0027random\u0027, \u0027outcomes\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027, \u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106104233_w1_l3\u0027, \u0027lecture_106104233_w1_l5\u0027, \u0027lecture_106104233_w1_l6\u0027, \u0027lecture_106104233_w2_l8\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_probability_measure", "label": "Probability Measure", "shape": "dot", "size": 15, "title": "\u003cb\u003eProbability Measure\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A function that assigns a non-negative real number to each event in a sample space, representing the probability of that event.\u003cbr\u003ekeywords: [\u0027space\u0027, \u0027measure\u0027, \u0027probability measure\u0027, \u0027event\u0027, \u0027non-negative\u0027, \u0027sample space\u0027, \u0027function\u0027, \u0027probability\u0027, \u0027real number\u0027, \u0027likelihood\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027, \u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106104233_w1_l3\u0027, \u0027lecture_106104233_w1_l5\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_random_experiment", "label": "Random Experiment", "shape": "dot", "size": 15, "title": "\u003cb\u003eRandom Experiment\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: An action or situation that can produce a set of outcomes, where each outcome is a result of the experiment.\u003cbr\u003ekeywords: [\u0027situation\u0027, \u0027random experiment\u0027, \u0027experiment\u0027, \u0027action\u0027, \u0027uncertain\u0027, \u0027probability\u0027, \u0027random\u0027, \u0027outcomes\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106104233_w1_l6\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_measure_theory", "label": "Measure Theory", "shape": "dot", "size": 15, "title": "\u003cb\u003eMeasure Theory\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A branch of mathematics that studies mathematical descriptions of sets and their properties.\u003cbr\u003ekeywords: [\u0027measure\u0027, \u0027theory\u0027, \u0027mathematics\u0027, \u0027sets\u0027, \u0027properties\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_lebesgue_measure", "label": "Lebesgue Measure", "shape": "dot", "size": 15, "title": "\u003cb\u003eLebesgue Measure\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A measure that assigns a non-negative real number to each subset of a set, representing its size or length.\u003cbr\u003ekeywords: [\u0027lebesgue\u0027, \u0027measure\u0027, \u0027size\u0027, \u0027length\u0027, \u0027subset\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_probability_theory", "label": "Probability Theory", "shape": "dot", "size": 15, "title": "\u003cb\u003eProbability Theory\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A branch of mathematics that deals with the study of chance events and their probabilities.\u003cbr\u003ekeywords: [\u0027event\u0027, \u0027theory\u0027, \u0027chance\u0027, \u0027statistics\u0027, \u0027events\u0027, \u0027probability\u0027, \u0027mathematics\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w2_l12\u0027, \u0027lecture_106104233_w2_l13\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_sigma_algebra", "label": "Sigma Algebra", "shape": "dot", "size": 15, "title": "\u003cb\u003eSigma Algebra\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A collection of subsets of a set that satisfies certain properties, used to define a measure on the set.\u003cbr\u003ekeywords: [\u0027subset\u0027, \u0027measure\u0027, \u0027properties\u0027, \u0027algebra\u0027, \u0027closure\u0027, \u0027sample space\u0027, \u0027subsets\u0027, \u0027sigma algebra\u0027, \u0027sigma\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106104233_w1_l5\u0027, \u0027lecture_106104233_w2_l8\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_event", "label": "Event", "shape": "dot", "size": 15, "title": "\u003cb\u003eEvent\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A subset of the sample space, representing a specific outcome or set of outcomes of a random experiment.\u003cbr\u003ekeywords: [\u0027space\u0027, \u0027subset\u0027, \u0027sample\u0027, \u0027state\u0027, \u0027player\u0027, \u0027states\u0027, \u0027outcome\u0027, \u0027world\u0027, \u0027sample space\u0027, \u0027event\u0027, \u0027outcomes\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106101360_w2_l6\u0027, \u0027lecture_106101360_w2_l7\u0027, \u0027lecture_106104233_w1_l3\u0027, \u0027lecture_106104233_w1_l5\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_likelihood", "label": "Likelihood", "shape": "dot", "size": 15, "title": "\u003cb\u003eLikelihood\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A measure of the probability of an event occurring, often interpreted as the chance or probability of the event.\u003cbr\u003ekeywords: [\u0027observation\u0027, \u0027measure\u0027, \u0027probability\u0027, \u0027function\u0027, \u0027event\u0027, \u0027relative\u0027, \u0027likelihood\u0027, \u0027chance\u0027, \u0027density\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w2_l9\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_probability_triplet", "label": "Probability Triplet", "shape": "dot", "size": 15, "title": "\u003cb\u003eProbability Triplet\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A mathematical construct consisting of a sample space, events, and a probability measure.\u003cbr\u003ekeywords: [\u0027probability\u0027, \u0027triplet\u0027, \u0027sample space\u0027, \u0027events\u0027, \u0027measure\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l3\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_push_forward_measure", "label": "Push Forward Measure", "shape": "dot", "size": 15, "title": "\u003cb\u003ePush Forward Measure\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A measure defined on the range space of a random variable.\u003cbr\u003ekeywords: [\u0027measure\u0027, \u0027push forward measure\u0027, \u0027range space\u0027, \u0027sample space\u0027, \u0027random variable\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l4\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_distribution_function", "label": "Distribution Function", "shape": "dot", "size": 15, "title": "\u003cb\u003eDistribution Function\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A function that describes the probability distribution of a random variable.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027real numbers\u0027, \u0027distribution function\u0027, \u0027probability\u0027, \u0027function\u0027, \u0027probability distribution\u0027, \u0027random variable\u0027, \u0027random\u0027, \u0027cumulative\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w2_l9\u0027, \u0027lecture_106108841_w2_l13\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_borel_sigma_algebra", "label": "Borel Sigma Algebra", "shape": "dot", "size": 15, "title": "\u003cb\u003eBorel Sigma Algebra\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A sigma algebra generated by the open sets of a topological space.\u003cbr\u003ekeywords: [\u0027borel sigma algebra\u0027, \u0027topological space\u0027, \u0027probability\u0027, \u0027borel\u0027, \u0027sigma algebra\u0027, \u0027open sets\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l4\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_real_valued_function", "label": "Real-Valued Function", "shape": "dot", "size": 15, "title": "\u003cb\u003eReal-Valued Function\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A function that maps elements of a sample space to real numbers.\u003cbr\u003ekeywords: [\u0027real-valued function\u0027, \u0027sample space\u0027, \u0027real numbers\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l3\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_dimensional_real_space", "label": "Dimensional Real Space", "shape": "dot", "size": 15, "title": "\u003cb\u003eDimensional Real Space\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A vector space with a finite number of dimensions.\u003cbr\u003ekeywords: [\u0027dimensional real space\u0027, \u0027vector space\u0027, \u0027dimensions\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l3\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_measurable_subset", "label": "Measurable Subset", "shape": "dot", "size": 15, "title": "\u003cb\u003eMeasurable Subset\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 98.0%\u003cbr\u003edescription: A subset of a sample space that is an element of a sigma algebra, and can be assigned a probability measure.\u003cbr\u003ekeywords: [\u0027measurable\u0027, \u0027subset\u0027, \u0027sigma algebra\u0027, \u0027probability\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l4\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_vector_valued_random_variable", "label": "Vector Valued Random Variable", "shape": "dot", "size": 15, "title": "\u003cb\u003eVector Valued Random Variable\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A random variable that takes on values in a vector space, often used to model multiple uncertain events.\u003cbr\u003ekeywords: [\u0027vector\u0027, \u0027uncertain events\u0027, \u0027vector space\u0027, \u0027valued\u0027, \u0027variable\u0027, \u0027random\u0027, \u0027random variable\u0027, \u0027vector valued random variable\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_joint_distribution", "label": "Joint Distribution", "shape": "dot", "size": 15, "title": "\u003cb\u003eJoint Distribution\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A probability distribution over multiple random variables, representing the probability of different combinations of values.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027joint distribution\u0027, \u0027random variables\u0027, \u0027probability distribution\u0027, \u0027random\u0027, \u0027combinations\u0027, \u0027probability\u0027, \u0027variable\u0027, \u0027joint\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106108841_w4_l23\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_conditional_distribution", "label": "Conditional Distribution", "shape": "dot", "size": 15, "title": "\u003cb\u003eConditional Distribution\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A probability distribution over a random variable, given the value of another random variable.\u003cbr\u003ekeywords: [\u0027conditional distribution\u0027, \u0027event\u0027, \u0027given\u0027, \u0027probability distribution\u0027, \u0027probability\u0027, \u0027random\u0027, \u0027conditional\u0027, \u0027random variable\u0027, \u0027distribution\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106104233_w2_l10\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_event_space", "label": "Event Space", "shape": "dot", "size": 15, "title": "\u003cb\u003eEvent Space\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A set of all possible events that can occur in a sample space.\u003cbr\u003ekeywords: [\u0027event\u0027, \u0027space\u0027, \u0027sample\u0027, \u0027outcomes\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l5\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_scalar_valued_random_variable", "label": "Scalar Valued Random Variable", "shape": "dot", "size": 15, "title": "\u003cb\u003eScalar Valued Random Variable\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 88.5%\u003cbr\u003edescription: A random variable that maps each outcome in a sample space to a single real number.\u003cbr\u003ekeywords: [\u0027scalar\u0027, \u0027valued\u0027, \u0027random\u0027, \u0027variable\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l5\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_marginal_distribution", "label": "Marginal Distribution", "shape": "dot", "size": 15, "title": "\u003cb\u003eMarginal Distribution\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A probability distribution that describes the probability of a single random variable, obtained by integrating out other random variables from a joint distribution.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027marginal\u0027, \u0027probability distribution\u0027, \u0027random variable\u0027, \u0027random\u0027, \u0027variable\u0027, \u0027probability\u0027, \u0027marginal distribution\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106108841_w4_l23\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_conditional_probability", "label": "Conditional Probability", "shape": "dot", "size": 15, "title": "\u003cb\u003eConditional Probability\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 75.4%\u003cbr\u003edescription: The probability of an event given that another event has occurred.\u003cbr\u003ekeywords: [\u0027event\u0027, \u0027update\u0027, \u0027occurred\u0027, \u0027occurrence\u0027, \u0027conditional\u0027, \u0027probability\u0027, \u0027given\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106101360_w2_l12\u0027, \u0027lecture_106104233_w1_l2\u0027, \u0027lecture_106104233_w1_l5\u0027, \u0027lecture_106104233_w1_l6\u0027, \u0027lecture_106104233_w1_l7\u0027, \u0027lecture_106104233_w2_l8\u0027, \u0027lecture_106104233_w3_l18\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_cumulative_distribution_function", "label": "Cumulative Distribution Functi...", "shape": "dot", "size": 15, "title": "\u003cb\u003eCumulative Distribution Function\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 23.3%\u003cbr\u003edescription: A function that describes the probability that a random variable takes on a value less than or equal to a given value.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027cumulative\u0027, \u0027function\u0027, \u0027random\u0027, \u0027probability\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106101360_w5_l28\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_range_space", "label": "Range Space", "shape": "dot", "size": 15, "title": "\u003cb\u003eRange Space\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: The set of all possible values that a random variable can take.\u003cbr\u003ekeywords: [\u0027range\u0027, \u0027space\u0027, \u0027random\u0027, \u0027variable\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l6\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_independent_and_identically_distributed_iid", "label": "Independent and Identically Di...", "shape": "dot", "size": 15, "title": "\u003cb\u003eIndependent and Identically Distributed (IID)\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A concept in probability theory where random variables are independent and have the same probability distribution.\u003cbr\u003ekeywords: [\u0027iid\u0027, \u0027independent\u0027, \u0027statistics\u0027, \u0027distributed\u0027, \u0027identically\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w2_l12\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_data_point", "label": "Data Point", "shape": "dot", "size": 15, "title": "\u003cb\u003eData Point\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A single observation or measurement in a dataset.\u003cbr\u003ekeywords: [\u0027data\u0027, \u0027point\u0027, \u0027observation\u0027, \u0027measurement\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l6\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_dimensional_vector", "label": "Dimensional Vector", "shape": "dot", "size": 15, "title": "\u003cb\u003eDimensional Vector\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A vector with a fixed number of dimensions, used to represent data points in a high-dimensional space.\u003cbr\u003ekeywords: [\u0027dimensional\u0027, \u0027vector\u0027, \u0027data\u0027, \u0027point\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l6\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_probability_density_function", "label": "Probability Density Function", "shape": "dot", "size": 15, "title": "\u003cb\u003eProbability Density Function\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A function that describes the probability distribution of a continuous random variable.\u003cbr\u003ekeywords: [\u0027density\u0027, \u0027function\u0027, \u0027random\u0027, \u0027probability\u0027, \u0027continuous\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106104233_w2_l11\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_iid_assumption", "label": "Iid Assumption", "shape": "dot", "size": 15, "title": "\u003cb\u003eIid Assumption\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A fundamental assumption in machine learning that data points are independent and identically distributed.\u003cbr\u003ekeywords: [\u0027iid\u0027, \u0027independence\u0027, \u0027identical distribution\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_statistical_independence", "label": "Statistical Independence", "shape": "dot", "size": 15, "title": "\u003cb\u003eStatistical Independence\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A property of two or more events or random variables that are not affected by each other\u0027s occurrence or value.\u003cbr\u003ekeywords: [\u0027independence\u0027, \u0027statistics\u0027, \u0027probability\u0027, \u0027random variables\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_identically_distributed_random_variables", "label": "Identically Distributed Random...", "shape": "dot", "size": 15, "title": "\u003cb\u003eIdentically Distributed Random Variables\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: Random variables that have the same probability distribution.\u003cbr\u003ekeywords: [\u0027identical distribution\u0027, \u0027random variables\u0027, \u0027probability distribution\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_generative_modeling", "label": "Generative Modeling", "shape": "dot", "size": 15, "title": "\u003cb\u003eGenerative Modeling\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A type of machine learning that involves learning to generate new data samples from a given distribution.\u003cbr\u003ekeywords: [\u0027generative modeling\u0027, \u0027machine learning\u0027, \u0027data generation\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_discriminative_modeling", "label": "Discriminative Modeling", "shape": "dot", "size": 15, "title": "\u003cb\u003eDiscriminative Modeling\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A type of machine learning that involves learning to predict a target variable from a set of input variables.\u003cbr\u003ekeywords: [\u0027discriminative modeling\u0027, \u0027machine learning\u0027, \u0027prediction\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_empirical_risk_minimization", "label": "Empirical Risk Minimization", "shape": "dot", "size": 15, "title": "\u003cb\u003eEmpirical Risk Minimization\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 26.9%\u003cbr\u003edescription: A framework used in machine learning to estimate the risk of a model by minimizing the error on a given dataset.\u003cbr\u003ekeywords: [\u0027machine learning\u0027, \u0027learning\u0027, \u0027risk\u0027, \u0027empirical\u0027, \u0027minimization\u0027, \u0027machine\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106108841_w2_l10\u0027, \u0027lecture_106108841_w3_l17\u0027, \u0027lecture_106108841_w3_l18\u0027, \u0027lecture_106108841_w3_l20\u0027, \u0027lecture_106108841_w3_l21\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_distribution_estimation", "label": "Distribution Estimation", "shape": "dot", "size": 15, "title": "\u003cb\u003eDistribution Estimation\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: The problem of estimating the underlying distribution of a dataset.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027dataset\u0027, \u0027estimation\u0027, \u0027machine learning\u0027, \u0027probability\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106108841_w3_l18\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_independent_and_identically_distributed", "label": "Independent And Identically Di...", "shape": "dot", "size": 15, "title": "\u003cb\u003eIndependent And Identically Distributed\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A statistical concept where random variables are independent and have the same probability distribution.\u003cbr\u003ekeywords: [\u0027iid\u0027, \u0027independent\u0027, \u0027variables\u0027, \u0027statistics\u0027, \u0027distributed\u0027, \u0027random\u0027, \u0027identically\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106108841_w3_l15\u0027, \u0027lecture_106108841_w5_l30\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_generative_model", "label": "Generative Model", "shape": "dot", "size": 15, "title": "\u003cb\u003eGenerative Model\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A type of machine learning model that generates new data samples that resemble the training data.\u003cbr\u003ekeywords: [\u0027generative\u0027, \u0027model\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l8\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_discriminative_model", "label": "Discriminative Model", "shape": "dot", "size": 15, "title": "\u003cb\u003eDiscriminative Model\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 65.7%\u003cbr\u003edescription: A type of machine learning model that estimates the conditional distribution of a target variable given the input data.\u003cbr\u003ekeywords: [\u0027discriminative\u0027, \u0027model\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l8\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_classification_problem", "label": "Classification Problem", "shape": "dot", "size": 15, "title": "\u003cb\u003eClassification Problem\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A type of machine learning problem where the goal is to predict a categorical label or class.\u003cbr\u003ekeywords: [\u0027categorical\u0027, \u0027label\u0027, \u0027classification\u0027, \u0027problem\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106103843_w1_l4\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_regression_problem", "label": "Regression Problem", "shape": "dot", "size": 15, "title": "\u003cb\u003eRegression Problem\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A type of machine learning problem where the goal is to predict a continuous output variable.\u003cbr\u003ekeywords: [\u0027regression\u0027, \u0027problem\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l8\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_density_function", "label": "Density Function", "shape": "dot", "size": 15, "title": "\u003cb\u003eDensity Function\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.5%\u003cbr\u003edescription: A non-negative function that describes the probability distribution of a continuous random variable.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027density\u0027, \u0027function\u0027, \u0027random\u0027, \u0027variable\u0027, \u0027probability\u0027, \u0027continuous\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027, \u0027lecture_106108841_w2_l13\u0027, \u0027lecture_106108841_w2_l14\u0027, \u0027lecture_106108841_w4_l24\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_continuous_random_variable", "label": "Continuous Random Variable", "shape": "dot", "size": 15, "title": "\u003cb\u003eContinuous Random Variable\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A random variable that can take on any value within a given interval or range.\u003cbr\u003ekeywords: [\u0027interval\u0027, \u0027range\u0027, \u0027random\u0027, \u0027variable\u0027, \u0027continuous\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027, \u0027lecture_106104233_w2_l11\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_probability_mass_function", "label": "Probability Mass Function", "shape": "dot", "size": 15, "title": "\u003cb\u003eProbability Mass Function\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A function that describes the probability distribution of a discrete random variable.\u003cbr\u003ekeywords: [\u0027discrete\u0027, \u0027function\u0027, \u0027random variable\u0027, \u0027mass\u0027, \u0027variable\u0027, \u0027probability\u0027, \u0027random\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027, \u0027lecture_106104233_w2_l8\u0027, \u0027lecture_106104233_w2_l9\u0027, \u0027lecture_106104233_w2_l10\u0027, \u0027lecture_106108841_w4_l24\u0027, \u0027lecture_106108841_w5_l30\u0027, \u0027lecture_106104233_w2_l11\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_conditional_density", "label": "Conditional Density", "shape": "dot", "size": 15, "title": "\u003cb\u003eConditional Density\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 91.3%\u003cbr\u003edescription: A density function that describes the probability distribution of a random variable given another random variable.\u003cbr\u003ekeywords: [\u0027conditional\u0027, \u0027density\u0027, \u0027function\u0027, \u0027probability\u0027, \u0027given\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_joint_density", "label": "Joint Density", "shape": "dot", "size": 15, "title": "\u003cb\u003eJoint Density\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 20.1%\u003cbr\u003edescription: A density function that describes the probability distribution of multiple random variables.\u003cbr\u003ekeywords: [\u0027joint\u0027, \u0027density\u0027, \u0027function\u0027, \u0027probability\u0027, \u0027multiple\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_marginal_density", "label": "Marginal Density", "shape": "dot", "size": 15, "title": "\u003cb\u003eMarginal Density\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A density function that describes the probability distribution of a single random variable, obtained by integrating out other variables.\u003cbr\u003ekeywords: [\u0027marginal\u0027, \u0027density\u0027, \u0027function\u0027, \u0027probability\u0027, \u0027integration\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_density_estimation", "label": "Density Estimation", "shape": "dot", "size": 15, "title": "\u003cb\u003eDensity Estimation\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: The process of estimating a density function from a set of observed data.\u003cbr\u003ekeywords: [\u0027density\u0027, \u0027estimation\u0027, \u0027process\u0027, \u0027observed\u0027, \u0027data\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_non_negativity", "label": "Non-Negativity", "shape": "dot", "size": 15, "title": "\u003cb\u003eNon-Negativity\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 75.0%\u003cbr\u003edescription: The property of a function being non-negative, which is a requirement for density functions.\u003cbr\u003ekeywords: [\u0027non-negativity\u0027, \u0027property\u0027, \u0027function\u0027, \u0027requirement\u0027, \u0027density\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l9\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_parametric_functional_form", "label": "Parametric Functional Form", "shape": "dot", "size": 15, "title": "\u003cb\u003eParametric Functional Form\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A mathematical function with a fixed number of parameters that can be used to model a distribution.\u003cbr\u003ekeywords: [\u0027parametric\u0027, \u0027functional\u0027, \u0027form\u0027, \u0027model\u0027, \u0027distribution\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l10\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_distance_metric", "label": "Distance Metric", "shape": "dot", "size": 15, "title": "\u003cb\u003eDistance Metric\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A function that measures the distance between two distributions.\u003cbr\u003ekeywords: [\u0027distance\u0027, \u0027metric\u0027, \u0027distributions\u0027, \u0027measure\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l10\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_optimization_problem", "label": "Optimization Problem", "shape": "dot", "size": 15, "title": "\u003cb\u003eOptimization Problem\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.0%\u003cbr\u003edescription: A problem that involves finding the best solution among a set of possible solutions, often subject to certain constraints.\u003cbr\u003ekeywords: [\u0027optimization\u0027, \u0027problem\u0027, \u0027solution\u0027, \u0027constraints\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l10\u0027]"}, {"font": {"color": "white"}, "group": "V_concept", "id": "concept_risk_minimization_framework", "label": "Risk Minimization Framework", "shape": "dot", "size": 15, "title": "\u003cb\u003eRisk Minimization Framework\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 94.8%\u003cbr\u003edescription: A framework used in machine learning to minimize the risk or loss of a model.\u003cbr\u003ekeywords: [\u0027framework\u0027, \u0027hypothesis\u0027, \u0027classifier\u0027, \u0027machine learning\u0027, \u0027learning\u0027, \u0027risk\u0027, \u0027minimization\u0027, \u0027machine\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w2_l10\u0027, \u0027lecture_106108841_w3_l17\u0027, \u0027lecture_106108841_w3_l19\u0027, \u0027lecture_106108841_w3_l20\u0027]"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "#e74c3c", "from": "stream_computer_science_and_engineering", "title": "HAS_COURSE", "to": "course_106108841"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l1"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l2"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l3"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l4"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l5"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l6"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l7"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l8"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l9"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l10"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l11"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l12"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l13"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l14"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w3_l15"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w3_l16"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w3_l17"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w3_l18"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w3_l19"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w3_l20"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w3_l21"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l22"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l23"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l24"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l25"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l26"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l27"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l28"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w5_l29"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w5_l30"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_function_approximation"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_probabilistic_viewpoint"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_probability_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_overfitting"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_vector_valued_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_deterministic_worldview"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_statistical_method"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_probability_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_random_experiment"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_probability_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_measure_theory"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_lebesgue_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_probability_theory"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_sigma_algebra"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_event"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_likelihood"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_probability_triplet"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_push_forward_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_distribution_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_sigma_algebra"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_borel_sigma_algebra"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_probability_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_real_valued_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_dimensional_real_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_probability_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_sigma_algebra"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_measurable_subset"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_borel_sigma_algebra"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_distribution_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_push_forward_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_vector_valued_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_event_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_probability_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_scalar_valued_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_vector_valued_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_marginal_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_conditional_probability"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_cumulative_distribution_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_range_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_probability_measure"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_distribution_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_independent_and_identically_distributed_iid"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_data_point"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_dimensional_vector"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_probability_density_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_iid_assumption"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_statistical_independence"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_identically_distributed_random_variables"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_random_experiment"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_marginal_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_generative_modeling"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_discriminative_modeling"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_empirical_risk_minimization"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_distribution_estimation"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_independent_and_identically_distributed"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_probability_density_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_generative_model"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_discriminative_model"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_supervised_learning"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_unsupervised_learning"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_classification_problem"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_regression_problem"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_density_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_distribution_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_continuous_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_probability_mass_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_likelihood"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_conditional_density"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_joint_density"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_marginal_density"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_density_estimation"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_non_negativity"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_machine_learning"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_parametric_functional_form"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_distance_metric"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_optimization_problem"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_neural_network"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_gradient_descent"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_risk_minimization_framework"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_empirical_risk_minimization"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l12", "title": "COVERS_CONCEPT", "to": "concept_probability_theory"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l12", "title": "COVERS_CONCEPT", "to": "concept_independent_and_identically_distributed_iid"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l13", "title": "COVERS_CONCEPT", "to": "concept_distribution_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l13", "title": "COVERS_CONCEPT", "to": "concept_density_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l14", "title": "COVERS_CONCEPT", "to": "concept_density_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l15", "title": "COVERS_CONCEPT", "to": "concept_independent_and_identically_distributed"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l17", "title": "COVERS_CONCEPT", "to": "concept_risk_minimization_framework"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l17", "title": "COVERS_CONCEPT", "to": "concept_empirical_risk_minimization"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l17", "title": "COVERS_CONCEPT", "to": "concept_overfitting"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l18", "title": "COVERS_CONCEPT", "to": "concept_empirical_risk_minimization"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l18", "title": "COVERS_CONCEPT", "to": "concept_distribution_estimation"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l19", "title": "COVERS_CONCEPT", "to": "concept_risk_minimization_framework"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l20", "title": "COVERS_CONCEPT", "to": "concept_risk_minimization_framework"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l20", "title": "COVERS_CONCEPT", "to": "concept_empirical_risk_minimization"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w3_l21", "title": "COVERS_CONCEPT", "to": "concept_empirical_risk_minimization"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w4_l23", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w4_l23", "title": "COVERS_CONCEPT", "to": "concept_marginal_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w4_l24", "title": "COVERS_CONCEPT", "to": "concept_probability_mass_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w4_l24", "title": "COVERS_CONCEPT", "to": "concept_density_function"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w5_l30", "title": "COVERS_CONCEPT", "to": "concept_independent_and_identically_distributed"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w5_l30", "title": "COVERS_CONCEPT", "to": "concept_probability_mass_function"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"barnesHut": {"gravitationalConstant": -8000, "centralGravity": 0.5, "springLength": 150, "springConstant": 0.04, "damping": 0.3, "avoidOverlap": 0.5}, "minVelocity": 0.75, "solver": "barnesHut", "stabilization": {"enabled": true, "iterations": 500, "updateInterval": 50}}, "interaction": {"hover": true, "tooltipDelay": 100, "navigationButtons": true, "keyboard": true}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    
+        <div id="mastery-legend">
+            <h4>Mastery Legend</h4>
+            <div><strong>Concepts:</strong></div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #95a5a6;"></div>
+                <span>Not studied</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-gradient" style="background: linear-gradient(to right, #95a5a6, #27ae60);"></div>
+                <span>Retention</span>
+            </div>
+            <div style="margin-top: 10px;"><strong>Lectures:</strong></div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #7f8c8d;"></div>
+                <span>Not started</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-gradient" style="background: linear-gradient(to right, #e74c3c, #27ae60);"></div>
+                <span>Completion</span>
+            </div>
+        </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Create toggle button
+                var btn = document.createElement('button');
+                btn.id = 'toolbar-toggle';
+                btn.innerHTML = '☰ Hide Controls';
+                btn.onclick = function() {
+                    var headers = document.querySelectorAll('.card-header');
+                    var body = document.body;
+                    var isHidden = body.classList.toggle('toolbar-hidden');
+                    headers.forEach(function(h) { h.classList.toggle('hidden'); });
+                    btn.innerHTML = isHidden ? '☰ Show Controls' : '☰ Hide Controls';
+                };
+                document.body.appendChild(btn);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,163 @@
+{
+  "demo_student": {
+    "student_id": "demo_student",
+    "name": "Demo Student",
+    "concept_mastery": {
+      "concept_snoop_protocol": {
+        "concept_id": "concept_snoop_protocol",
+        "review_count": 1,
+        "last_review": "2026-02-07T16:02:05.649847",
+        "stability": 1.0,
+        "last_quality": 2.15965931637689
+      },
+      "concept_request_phase": {
+        "concept_id": "concept_request_phase",
+        "review_count": 1,
+        "last_review": "2026-02-09T00:04:08.961914",
+        "stability": 1.0,
+        "last_quality": 2.277871341671642
+      },
+      "concept_turnaround_time": {
+        "concept_id": "concept_turnaround_time",
+        "review_count": 2,
+        "last_review": "2026-02-12T05:24:25.055023",
+        "stability": 3.470939260699124,
+        "last_quality": 3.3799273006373376
+      },
+      "concept_data_response_phase": {
+        "concept_id": "concept_data_response_phase",
+        "review_count": 2,
+        "last_review": "2026-02-12T05:49:22.609665",
+        "stability": 3.8702393059944673,
+        "last_quality": 3.80712827327438
+      },
+      "concept_write_back_request": {
+        "concept_id": "concept_write_back_request",
+        "review_count": 4,
+        "last_review": "2026-02-12T06:59:51.049939",
+        "stability": 6.532953363550486,
+        "last_quality": 3.293178281407093
+      },
+      "concept_split_transaction_bus": {
+        "concept_id": "concept_split_transaction_bus",
+        "review_count": 3,
+        "last_review": "2026-02-12T08:02:51.863810",
+        "stability": 6.869911130982379,
+        "last_quality": 4.045824383655662
+      },
+      "concept_data_request_phase": {
+        "concept_id": "concept_data_request_phase",
+        "review_count": 4,
+        "last_review": "2026-02-12T13:29:34.013631",
+        "stability": 10.463441887733907,
+        "last_quality": 4.380126225039167
+      },
+      "concept_response_phase": {
+        "concept_id": "concept_response_phase",
+        "review_count": 4,
+        "last_review": "2026-02-12T11:32:41.661695",
+        "stability": 9.829702616848538,
+        "last_quality": 4.701820313458551
+      },
+      "concept_busupgr_request": {
+        "concept_id": "concept_busupgr_request",
+        "review_count": 3,
+        "last_review": "2026-02-12T11:11:06.735135",
+        "stability": 7.155174966342495,
+        "last_quality": 4.729126797950349
+      },
+      "concept_bus_arbitration": {
+        "concept_id": "concept_bus_arbitration",
+        "review_count": 4,
+        "last_review": "2026-02-12T11:33:57.921349",
+        "stability": 9.680073537475897,
+        "last_quality": 4.2196151739702685
+      },
+      "concept_tag_matching": {
+        "concept_id": "concept_tag_matching",
+        "review_count": 3,
+        "last_review": "2026-02-12T14:13:11.750784",
+        "stability": 6.56493476321274,
+        "last_quality": 4.315453048059082
+      },
+      "concept_iid_assumption": {
+        "concept_id": "concept_iid_assumption",
+        "review_count": 1,
+        "last_review": "2026-02-08T10:58:20.763530",
+        "stability": 1.0,
+        "last_quality": 2.861102909666666
+      },
+      "concept_joint_distribution": {
+        "concept_id": "concept_joint_distribution",
+        "review_count": 1,
+        "last_review": "2026-02-09T21:04:21.491549",
+        "stability": 1.0,
+        "last_quality": 2.15998200172245
+      },
+      "concept_identically_distributed_random_variables": {
+        "concept_id": "concept_identically_distributed_random_variables",
+        "review_count": 3,
+        "last_review": "2026-02-12T04:18:49.653792",
+        "stability": 5.478659997374702,
+        "last_quality": 3.9961213802400968
+      },
+      "concept_discriminative_modeling": {
+        "concept_id": "concept_discriminative_modeling",
+        "review_count": 3,
+        "last_review": "2026-02-12T04:22:22.667710",
+        "stability": 5.372829485644296,
+        "last_quality": 3.7207218193601945
+      },
+      "concept_conditional_distribution": {
+        "concept_id": "concept_conditional_distribution",
+        "review_count": 4,
+        "last_review": "2026-02-12T08:00:30.889904",
+        "stability": 9.55036960669542,
+        "last_quality": 4.293500128647426
+      },
+      "concept_marginal_distribution": {
+        "concept_id": "concept_marginal_distribution",
+        "review_count": 2,
+        "last_review": "2026-02-12T08:36:34.651946",
+        "stability": 4.036549788787477,
+        "last_quality": 3.875852940378194
+      },
+      "concept_generative_modeling": {
+        "concept_id": "concept_generative_modeling",
+        "review_count": 5,
+        "last_review": "2026-02-12T12:51:24.863675",
+        "stability": 13.476776853617071,
+        "last_quality": 4.841669348172467
+      },
+      "concept_random_variable": {
+        "concept_id": "concept_random_variable",
+        "review_count": 3,
+        "last_review": "2026-02-12T11:02:58.249681",
+        "stability": 7.157098279019924,
+        "last_quality": 4.539379030119626
+      },
+      "concept_random_experiment": {
+        "concept_id": "concept_random_experiment",
+        "review_count": 5,
+        "last_review": "2026-02-12T14:38:29.018837",
+        "stability": 12.48893367944636,
+        "last_quality": 4.362980767180933
+      },
+      "concept_statistical_independence": {
+        "concept_id": "concept_statistical_independence",
+        "review_count": 4,
+        "last_review": "2026-02-12T07:50:51.952060",
+        "stability": 8.985938876660024,
+        "last_quality": 4.078757048291366
+      },
+      "concept_sample_space": {
+        "concept_id": "concept_sample_space",
+        "review_count": 3,
+        "last_review": "2026-02-12T11:23:12.565616",
+        "stability": 7.001982262214111,
+        "last_quality": 4.125760511520442
+      }
+    },
+    "created_at": "2026-02-12T15:07:16.945599"
+  }
+}

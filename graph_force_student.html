@@ -1,0 +1,539 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #1a1a2e;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    
+        <style>
+            #toolbar-toggle {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                z-index: 9999;
+                background: #3498db;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            }
+            #toolbar-toggle:hover {
+                background: #2980b9;
+            }
+            .card-header.hidden {
+                display: none !important;
+            }
+            .toolbar-hidden #mynetwork {
+                height: 100vh !important;
+            }
+            .toolbar-hidden .card {
+                border: none !important;
+            }
+            #mastery-legend {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                z-index: 9999;
+                background: rgba(26, 26, 46, 0.95);
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 12px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+                max-width: 200px;
+            }
+            #mastery-legend h4 {
+                margin: 0 0 10px 0;
+                font-size: 14px;
+                border-bottom: 1px solid #444;
+                padding-bottom: 5px;
+            }
+            .legend-item {
+                display: flex;
+                align-items: center;
+                margin: 5px 0;
+            }
+            .legend-color {
+                width: 20px;
+                height: 12px;
+                margin-right: 8px;
+                border-radius: 2px;
+            }
+            .legend-gradient {
+                width: 100px;
+                height: 12px;
+                margin-right: 8px;
+                border-radius: 2px;
+            }
+            .toolbar-hidden #mastery-legend {
+                display: none;
+            }
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="stream_computer_science_and_engineering">stream_computer_science_and_engineering</option>
+                                
+                                    <option value="course_106108841">course_106108841</option>
+                                
+                                    <option value="lecture_106108841_w1_l1">lecture_106108841_w1_l1</option>
+                                
+                                    <option value="lecture_106108841_w1_l2">lecture_106108841_w1_l2</option>
+                                
+                                    <option value="lecture_106108841_w1_l3">lecture_106108841_w1_l3</option>
+                                
+                                    <option value="lecture_106108841_w1_l4">lecture_106108841_w1_l4</option>
+                                
+                                    <option value="lecture_106108841_w1_l5">lecture_106108841_w1_l5</option>
+                                
+                                    <option value="lecture_106108841_w1_l6">lecture_106108841_w1_l6</option>
+                                
+                                    <option value="lecture_106108841_w1_l7">lecture_106108841_w1_l7</option>
+                                
+                                    <option value="lecture_106108841_w2_l8">lecture_106108841_w2_l8</option>
+                                
+                                    <option value="lecture_106108841_w4_l23">lecture_106108841_w4_l23</option>
+                                
+                                    <option value="course_106103359">course_106103359</option>
+                                
+                                    <option value="lecture_106103359_w5_l30">lecture_106103359_w5_l30</option>
+                                
+                                    <option value="lecture_106103359_w5_l32">lecture_106103359_w5_l32</option>
+                                
+                                    <option value="lecture_106103359_w5_l35">lecture_106103359_w5_l35</option>
+                                
+                                    <option value="lecture_106103359_w6_l36">lecture_106103359_w6_l36</option>
+                                
+                                    <option value="lecture_106103359_w6_l37">lecture_106103359_w6_l37</option>
+                                
+                                    <option value="lecture_106103359_w6_l38">lecture_106103359_w6_l38</option>
+                                
+                                    <option value="lecture_106103359_w6_l39">lecture_106103359_w6_l39</option>
+                                
+                                    <option value="lecture_106103359_w9_l60">lecture_106103359_w9_l60</option>
+                                
+                                    <option value="lecture_106103359_w10_l67">lecture_106103359_w10_l67</option>
+                                
+                                    <option value="course_106104233">course_106104233</option>
+                                
+                                    <option value="lecture_106104233_w1_l3">lecture_106104233_w1_l3</option>
+                                
+                                    <option value="lecture_106104233_w1_l5">lecture_106104233_w1_l5</option>
+                                
+                                    <option value="lecture_106104233_w1_l6">lecture_106104233_w1_l6</option>
+                                
+                                    <option value="lecture_106104233_w2_l8">lecture_106104233_w2_l8</option>
+                                
+                                    <option value="lecture_106104233_w2_l9">lecture_106104233_w2_l9</option>
+                                
+                                    <option value="lecture_106104233_w2_l10">lecture_106104233_w2_l10</option>
+                                
+                                    <option value="lecture_106104233_w2_l13">lecture_106104233_w2_l13</option>
+                                
+                                    <option value="lecture_106104233_w4_l28">lecture_106104233_w4_l28</option>
+                                
+                                    <option value="concept_random_variable">concept_random_variable</option>
+                                
+                                    <option value="concept_sample_space">concept_sample_space</option>
+                                
+                                    <option value="concept_random_experiment">concept_random_experiment</option>
+                                
+                                    <option value="concept_joint_distribution">concept_joint_distribution</option>
+                                
+                                    <option value="concept_conditional_distribution">concept_conditional_distribution</option>
+                                
+                                    <option value="concept_marginal_distribution">concept_marginal_distribution</option>
+                                
+                                    <option value="concept_iid_assumption">concept_iid_assumption</option>
+                                
+                                    <option value="concept_statistical_independence">concept_statistical_independence</option>
+                                
+                                    <option value="concept_identically_distributed_random_variables">concept_identically_distributed_random_variables</option>
+                                
+                                    <option value="concept_generative_modeling">concept_generative_modeling</option>
+                                
+                                    <option value="concept_discriminative_modeling">concept_discriminative_modeling</option>
+                                
+                                    <option value="concept_split_transaction_bus">concept_split_transaction_bus</option>
+                                
+                                    <option value="concept_bus_arbitration">concept_bus_arbitration</option>
+                                
+                                    <option value="concept_request_phase">concept_request_phase</option>
+                                
+                                    <option value="concept_response_phase">concept_response_phase</option>
+                                
+                                    <option value="concept_tag_matching">concept_tag_matching</option>
+                                
+                                    <option value="concept_data_request_phase">concept_data_request_phase</option>
+                                
+                                    <option value="concept_data_response_phase">concept_data_response_phase</option>
+                                
+                                    <option value="concept_turnaround_time">concept_turnaround_time</option>
+                                
+                                    <option value="concept_snoop_protocol">concept_snoop_protocol</option>
+                                
+                                    <option value="concept_busupgr_request">concept_busupgr_request</option>
+                                
+                                    <option value="concept_write_back_request">concept_write_back_request</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+              <div id="filter-menu" class="card-header">
+                <div class="row no-gutters">
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'item')"
+                            id="select-item"
+                        >
+                        <option value="">Select a network item</option>
+                        <option value="edge">edge</option>
+                        <option value="node">node</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'property')"
+                            id="select-property"
+                        >
+                        <option value="">Select a property...</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="select-value"
+                        >
+                        <option value="">Select value(s)...</option>
+                    </select>
+                  </div>
+                  <div class="col-1 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="highlightFilter(filter);">Filter</button>
+                  </div>
+                  <div class="col-2 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="clearFilter(true)">Reset Selection</button>
+                  </div>
+                </div>
+              </div>
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+                  // explicitly using onItemAdd and this function as we need to save multiple values
+                  let updateValueFilter = function() {
+                      return function () {
+                      filter['value'].push(arguments[0])
+                      }
+                  }
+
+                  let valueControl = new TomSelect("#select-value",{
+                      maxItems: null,
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: updateValueFilter()
+                  });
+
+                  let addValues = function() {
+                      return function () {
+                          // clear the current value options and add the selected attribute values
+                          // tom-select handles duplicates
+                          let selectedProperty = arguments[0];
+                          valueControl.clear();
+                          valueControl.clearOptions();
+                          filter['value'] = []
+                          if (filter['item'] === 'node') {
+                              for (let each in allNodes) {
+                                  valueControl.addOption({
+                                      id:allNodes[each][selectedProperty],
+                                      title:allNodes[each][selectedProperty]
+                                  })
+                              }
+                          }
+                          else if (filter['item'] === 'edge') {
+                              for (let each in allEdges) {
+                                  valueControl.addOption({
+                                      id:allEdges[each][selectedProperty],
+                                      title:allEdges[each][selectedProperty]
+                                  })
+                              }
+                          }
+                      }
+                  };
+
+                  let propControl = new TomSelect("#select-property",{
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addValues()
+                  });
+
+                  let addProperties = function() {
+                      return function () {
+                          // loops through the selected network item and adds the attributes to dropdown
+                          // tom-select handles duplicates
+                          clearFilter(false)
+                          if (arguments[0] === 'edge') {
+                              for (let each in allEdges) {
+                                  if (allEdges.hasOwnProperty(each)) {
+                                      for (let eachProp in allEdges[each]) {
+                                          if (allEdges[each].hasOwnProperty(eachProp)) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          else if (arguments[0] === 'node') {
+                              for (let each in allNodes) {
+                                  if (allNodes.hasOwnProperty(each)) {
+                                      for (let eachProp in allNodes[each]) {
+                                          if (allNodes[each].hasOwnProperty(eachProp)
+                                              && (eachProp !== 'hidden' && eachProp !== 'savedLabel'
+                                                  && eachProp !== 'hiddenLabel')) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  };
+
+                  let itemControl = new TomSelect("#select-item",{
+                      create: false,
+                      sortField:{
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addProperties()
+                  });
+
+                  function clearFilter(reset) {
+                      // utility function to clear all the selected filter options
+                      // if reset is set to true, the existing filter will be removed
+                      // else, only the dropdown options are cleared
+                      propControl.clear();
+                      propControl.clearOptions();
+                      valueControl.clear();
+                      valueControl.clearOptions();
+                      filter = {
+                          item : '',
+                          property : '',
+                          value : []
+                      }
+                      if (reset) {
+                          itemControl.clear();
+                          filterHighlight({nodes: []})
+                      }
+                  }
+
+                  function updateFilter(value, key) {
+                      // key could be 'item' or 'property' and value is as selected in dropdown
+                      filter[key] = value
+                  }
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#e74c3c", "font": {"color": "white"}, "id": "stream_computer_science_and_engineering", "label": "Computer Science and Engineeri...", "shape": "dot", "size": 50, "title": "\u003cb\u003eComputer Science and Engineering\u003c/b\u003e\u003cbr\u003eType: V_stream\u003cbr\u003eslug: computer_science_and_engineering"}, {"color": "#3498db", "font": {"color": "white"}, "id": "course_106108841", "label": "Mathematical Foundations of Ma...", "shape": "dot", "size": 35, "title": "\u003cb\u003eMathematical Foundations of Machine Learning\u003c/b\u003e\u003cbr\u003eType: V_course\u003cbr\u003ecourse_id: noc26-cs02\u003cbr\u003enptel_url: https://nptel.ac.in/courses/106108841\u003cbr\u003enptel_id: 106108841\u003cbr\u003eabstract: NOC: Mathematical Foundations of Machine Learning, IISc Bangalore\nProf. Prathosh A P Course Duration :\nJan-Apr 2026\nEnrollment :\n2025-11-17 to 2026-01-26\nExam Registration :\n2025-12-13 to 2026-02-13\nExam Date :\n2026-04-25\nCourse Abstract\n\nThis course introduces the mathematical foundations of machine learning, covering risk minimization, density estimation, regularization, and generalization. Students learn classical methods such as linear models, kernel machines, SVMs, decision trees, and ensemble techniques, as well as modern deep learning approaches including MLPs, CNNs, RNNs, and Transformers. Probabilistic models, clustering, PCA, and the EM algorithm are presented to build a solid grounding in unsupervised learning. The course concludes with an introduction to generative models (GANs, VAEs) as a bridge to advanced topics. Emphasis is placed on both theory and practice, with coding assignments connecting math to real-world ML applications. Course Duration :\nJan-Apr 2026\nEnrollment :\n2025-11-17 to 2026-01-26\nExam Registration :\n2025-12-13 to 2026-02-13\nExam Date :\n2026-04-25\u003cbr\u003eprofessor: Prof. Prathosh A P\u003cbr\u003einstitute: IISc Bangalore\u003cbr\u003eduration: 12 weeks\u003cbr\u003estream_id: stream_computer_science_and_engineering"}, {"color": "#b16c65", "font": {"color": "white"}, "id": "lecture_106108841_w1_l1", "label": "Overview of Function Approxima...", "shape": "dot", "size": 20, "title": "\u003cb\u003eOverview of Function Approximation\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 19.5%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 1\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=G2h7nD_Stxg\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#cb5c51", "font": {"color": "white"}, "id": "lecture_106108841_w1_l2", "label": "Recap of Probability Theory - ...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory - 1, Part 1\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 29.5%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 2\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=YLx3hBqt28k\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#b16c65", "font": {"color": "white"}, "id": "lecture_106108841_w1_l3", "label": "Recap of Probability Theory - ...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory - 1, Part 2\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 19.5%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 3\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=DaBw9qBpt2s\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#b36b64", "font": {"color": "white"}, "id": "lecture_106108841_w1_l4", "label": "Recap of Probability Theory - ...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory - 1, Part 3\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 20.1%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 4\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=0R6Agp4tqSU\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#db5244", "font": {"color": "white"}, "id": "lecture_106108841_w1_l5", "label": "Recap of Probability Theory Pa...", "shape": "dot", "size": 20, "title": "\u003cb\u003eRecap of Probability Theory Part 2\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 35.7%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 5\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=R69wew8RrPo\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#b36b64", "font": {"color": "white"}, "id": "lecture_106108841_w1_l6", "label": "Understanding a Chest X-Ray  a...", "shape": "dot", "size": 20, "title": "\u003cb\u003eUnderstanding a Chest X-Ray  as Sample from Distribution\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 20.2%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 6\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=bdcvsSNAHIk\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#b1bd28", "font": {"color": "white"}, "id": "lecture_106108841_w1_l7", "label": "IID Assumption", "shape": "dot", "size": 20, "title": "\u003cb\u003eIID Assumption\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 79.4%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 7\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=C83xmx80tMo\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#957d7b", "font": {"color": "white"}, "id": "lecture_106108841_w2_l8", "label": "Distribution Estimation", "shape": "dot", "size": 20, "title": "\u003cb\u003eDistribution Estimation\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 8.8%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 8\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=aYb8KG9JYsg\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#987c78", "font": {"color": "white"}, "id": "lecture_106108841_w4_l23", "label": "Latent Variable Models", "shape": "dot", "size": 20, "title": "\u003cb\u003eLatent Variable Models\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 10.0%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 23\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=J9QNr4UrB2c\u003cbr\u003ecourse_id: course_106108841"}, {"color": "#3498db", "font": {"color": "white"}, "id": "course_106103359", "label": "Parallel Computer Architecture", "shape": "dot", "size": 35, "title": "\u003cb\u003eParallel Computer Architecture\u003c/b\u003e\u003cbr\u003eType: V_course\u003cbr\u003ecourse_id: noc26-cs25\u003cbr\u003enptel_url: https://nptel.ac.in/courses/106103359\u003cbr\u003enptel_id: 106103359\u003cbr\u003eabstract: NOC: Parallel Computer Architecture, IIT Guwahati\nProf. Hemangee K. Kapoor Course Duration :\nJan-Apr 2026\nEnrollment :\n2025-11-17 to 2026-01-26\nExam Registration :\n2025-12-13 to 2026-02-13\nExam Date :\n2026-04-26\nCourse Abstract\n\nWith the emergence of application domains requiring large data processing as well as faster compute performance, parallel computing has become a critical component. This involves the use of multi-core processors as well as tightly integrated clusters of PCs and workstations. The most exciting development is the convergence of traditionally disparate approaches of shared memory, message passing and data driven computing onto the same platform\n\nAs the parallel applications communicate with each other using sharing data; it is important to correctly manage the shared data within the memory hierarchy to avoid inconsistency. Here, we need to understand the mechanisms used for data access, communication and coordination of work and its correct implementation.\n\nThis course will introduce the eld of parallel architectures and discuss in-depth shared memory management for parallel architectures. We will also learn about the interconnection topologies and routing methods which are important for connection and communication of the multiple cores executing the parallel applications. The course will conclude with overview of various parallel architectures and on-going research directions.\n\nINTENDED AUDIENCE: Final year UG as well as PG\n\nPREREQUISITES: Final year undergraduate as well as post-graduate students in the disciplines of CSE, IT, CS, ECE, EEE, etc. Can benet from this course. A basic knowledge in Computer Organisation is sucient to take this subject.\n\nINDUSTRY SUPPORT: Intel, Micron, AMD, IBM, NVIDIA, HP, Samsung, etc. Course Duration :\nJan-Apr 2026\nEnrollment :\n2025-11-17 to 2026-01-26\nExam Registration :\n2025-12-13 to 2026-02-13\nExam Date :\n2026-04-26\u003cbr\u003eprofessor: Prof. Hemangee K. Kapoor\u003cbr\u003einstitute: IIT Guwahati\u003cbr\u003eduration: 12 Weeks\u003cbr\u003estream_id: stream_computer_science_and_engineering"}, {"color": "#92807e", "font": {"color": "white"}, "id": "lecture_106103359_w5_l30", "label": "Lec 30: Correctness Requiremen...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 30: Correctness Requirements\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 7.4%\u003cbr\u003eweek: 5\u003cbr\u003electure_num: 30\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=48rTP_EcvxQ\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#90817f", "font": {"color": "white"}, "id": "lecture_106103359_w5_l32", "label": "Lec 32: Single-Level caches wi...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 32: Single-Level caches with an Atomic Bus (2)\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 6.6%\u003cbr\u003eweek: 5\u003cbr\u003electure_num: 32\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=88B0vyWS9YE\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#ba675e", "font": {"color": "white"}, "id": "lecture_106103359_w5_l35", "label": "Lec 35: Split transaction Bus", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 35: Split transaction Bus\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 22.7%\u003cbr\u003eweek: 5\u003cbr\u003electure_num: 35\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=YXdwWvASZAI\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#b5bd26", "font": {"color": "white"}, "id": "lecture_106103359_w6_l36", "label": "Lec 36: Phases in Split Transa...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 36: Phases in Split Transaction Bus\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 78.8%\u003cbr\u003eweek: 6\u003cbr\u003electure_num: 36\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=VBOcFykFngo\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#957e7b", "font": {"color": "white"}, "id": "lecture_106103359_w6_l37", "label": "Lec 37: Request table and Orga...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 37: Request table and Organization\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 8.7%\u003cbr\u003eweek: 6\u003cbr\u003electure_num: 37\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=wrrhwIbFYmQ\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#8f8180", "font": {"color": "white"}, "id": "lecture_106103359_w6_l38", "label": "Lec 38: Path of a Cache Miss", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 38: Path of a Cache Miss\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 6.4%\u003cbr\u003eweek: 6\u003cbr\u003electure_num: 38\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=NDifrwPRbSM\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#977c79", "font": {"color": "white"}, "id": "lecture_106103359_w6_l39", "label": "Lec 39: Multi-Level cache + Sp...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 39: Multi-Level cache + Split transaction Bus\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.6%\u003cbr\u003eweek: 6\u003cbr\u003electure_num: 39\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=dkquNQNaXxg\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#977c79", "font": {"color": "white"}, "id": "lecture_106103359_w9_l60", "label": "Lec 60: Implementation of atom...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLec 60: Implementation of atomic instructions\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.6%\u003cbr\u003eweek: 9\u003cbr\u003electure_num: 60\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=spSrWIcc7T8\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#888585", "font": {"color": "white"}, "id": "lecture_106103359_w10_l67", "label": "Live Session 14-03-2024", "shape": "dot", "size": 20, "title": "\u003cb\u003eLive Session 14-03-2024\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 3.8%\u003cbr\u003eweek: 10\u003cbr\u003electure_num: 67\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=pXQXTWfMf4Y\u003cbr\u003ecourse_id: course_106103359"}, {"color": "#3498db", "font": {"color": "white"}, "id": "course_106104233", "label": "Probability for Computer Scien...", "shape": "dot", "size": 35, "title": "\u003cb\u003eProbability for Computer Science\u003c/b\u003e\u003cbr\u003eType: V_course\u003cbr\u003ecourse_id: noc26-cs28\u003cbr\u003enptel_url: https://nptel.ac.in/courses/106104233\u003cbr\u003enptel_id: 106104233\u003cbr\u003eabstract: NOC: Probability for Computer Science, IIT Kanpur\nProf. Nitin Saxena\nSwayam Certification Course Duration :\nFeb-Apr 2026\nEnrollment :\n2025-11-17 to 2026-02-16\nExam Registration :\n2025-12-13 to 2026-02-27\nExam Date :\n2026-04-19\nCourse Abstract\n\nProbability is one of the most important ideas in human knowledge. This is a crash course to introduce the concept of probability formally; and exhibit its applications in computer science, combinatorics, and algorithms. The course will be different from a typical mathematics course in the coverage and focus of examples. After finishing this course a student will have a good understanding of both theory and practice of probability in diverse areas. Course Duration :\nFeb-Apr 2026\nEnrollment :\n2025-11-17 to 2026-02-16\nExam Registration :\n2025-12-13 to 2026-02-27\nExam Date :\n2026-04-19\u003cbr\u003eprofessor: Prof. Nitin Saxena\u003cbr\u003einstitute: IIT Kanpur\u003cbr\u003eduration: 8 Weeks\u003cbr\u003estream_id: stream_computer_science_and_engineering"}, {"color": "#927f7d", "font": {"color": "white"}, "id": "lecture_106104233_w1_l3", "label": "Lecture 03 :  Probability over...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLecture 03 :  Probability over discrete space\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 7.5%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 3\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=lik-huYpYxc\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#987c79", "font": {"color": "white"}, "id": "lecture_106104233_w1_l5", "label": "Lecture 05 : Probability over ...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLecture 05 : Probability over infinite space\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.8%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 5\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=bz9YpLjdfVM\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#b26c64", "font": {"color": "white"}, "id": "lecture_106104233_w1_l6", "label": "Lecture 06 : Conditional proba...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLecture 06 : Conditional probability, Partition formula\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 19.8%\u003cbr\u003eweek: 1\u003cbr\u003electure_num: 6\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=8oLZqkwmqGM\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#b16c65", "font": {"color": "white"}, "id": "lecture_106104233_w2_l8", "label": "Lecture 08 : Fallacies, Random...", "shape": "dot", "size": 20, "title": "\u003cb\u003eLecture 08 : Fallacies, Random variables\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 19.5%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 8\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=5dIMNBBKYaA\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#987c79", "font": {"color": "white"}, "id": "lecture_106104233_w2_l9", "label": "noc21-cs104-lec09", "shape": "dot", "size": 20, "title": "\u003cb\u003enoc21-cs104-lec09\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.8%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 9\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=DbAJF9sDxhE\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#b16c65", "font": {"color": "white"}, "id": "lecture_106104233_w2_l10", "label": "noc21-cs104-lec10", "shape": "dot", "size": 20, "title": "\u003cb\u003enoc21-cs104-lec10\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 19.5%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 10\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=JEa2audI6mY\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#987c79", "font": {"color": "white"}, "id": "lecture_106104233_w2_l13", "label": "noc21-cs104-lec13", "shape": "dot", "size": 20, "title": "\u003cb\u003enoc21-cs104-lec13\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.8%\u003cbr\u003eweek: 2\u003cbr\u003electure_num: 13\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=nn7dbKJuaNM\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#987c79", "font": {"color": "white"}, "id": "lecture_106104233_w4_l28", "label": "noc21-cs104-lec28", "shape": "dot", "size": 20, "title": "\u003cb\u003enoc21-cs104-lec28\u003c/b\u003e\u003cbr\u003eType: V_lecture\u003cbr\u003eCompletion: 9.8%\u003cbr\u003eweek: 4\u003cbr\u003electure_num: 28\u003cbr\u003eyoutube_url: https://www.youtube.com/watch?v=3nnCag9U1jc\u003cbr\u003ecourse_id: course_106104233"}, {"color": "#36af59", "font": {"color": "white"}, "id": "concept_random_variable", "label": "Random Variable", "shape": "dot", "size": 15, "title": "\u003cb\u003eRandom Variable\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 97.7%\u003cbr\u003edescription: A deterministic function that maps a sample space to real values, used to model uncertainty in machine learning.\u003cbr\u003ekeywords: [\u0027chance\u0027, \u0027probability distribution\u0027, \u0027random variable\u0027, \u0027sample\u0027, \u0027statistics\u0027, \u0027function\u0027, \u0027numerical\u0027, \u0027chance events\u0027, \u0027value\u0027, \u0027real numbers\u0027, \u0027experiment\u0027, \u0027random\u0027, \u0027variable\u0027, \u0027probability\u0027, \u0027sample space\u0027, \u0027event\u0027, \u0027space\u0027, \u0027events\u0027, \u0027mathematics\u0027, \u0027outcome\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027, \u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106104233_w2_l8\u0027, \u0027lecture_106104233_w2_l9\u0027, \u0027lecture_106104233_w2_l10\u0027, \u0027lecture_106104233_w2_l13\u0027, \u0027lecture_106104233_w4_l28\u0027]"}, {"color": "#35af5a", "font": {"color": "white"}, "id": "concept_sample_space", "label": "Sample Space", "shape": "dot", "size": 15, "title": "\u003cb\u003eSample Space\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 97.8%\u003cbr\u003edescription: The set of all possible outcomes of a random experiment.\u003cbr\u003ekeywords: [\u0027space\u0027, \u0027random experiment\u0027, \u0027experiment\u0027, \u0027probability\u0027, \u0027sample\u0027, \u0027outcome\u0027, \u0027sample space\u0027, \u0027event\u0027, \u0027random\u0027, \u0027outcomes\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l1\u0027, \u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l3\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106104233_w1_l3\u0027, \u0027lecture_106104233_w1_l5\u0027, \u0027lecture_106104233_w1_l6\u0027, \u0027lecture_106104233_w2_l8\u0027]"}, {"color": "#28ae5f", "font": {"color": "white"}, "id": "concept_random_experiment", "label": "Random Experiment", "shape": "dot", "size": 15, "title": "\u003cb\u003eRandom Experiment\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 99.8%\u003cbr\u003edescription: An action or situation that can produce a set of outcomes, where each outcome is a result of the experiment.\u003cbr\u003ekeywords: [\u0027situation\u0027, \u0027random experiment\u0027, \u0027experiment\u0027, \u0027action\u0027, \u0027uncertain\u0027, \u0027probability\u0027, \u0027random\u0027, \u0027outcomes\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l2\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106104233_w1_l6\u0027]"}, {"color": "#a29695", "font": {"color": "white"}, "id": "concept_joint_distribution", "label": "Joint Distribution", "shape": "dot", "size": 15, "title": "\u003cb\u003eJoint Distribution\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 6.4%\u003cbr\u003edescription: A probability distribution over multiple random variables, representing the probability of different combinations of values.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027joint distribution\u0027, \u0027random variables\u0027, \u0027probability distribution\u0027, \u0027random\u0027, \u0027combinations\u0027, \u0027probability\u0027, \u0027variable\u0027, \u0027joint\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l6\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106108841_w4_l23\u0027]"}, {"color": "#3bb057", "font": {"color": "white"}, "id": "concept_conditional_distribution", "label": "Conditional Distribution", "shape": "dot", "size": 15, "title": "\u003cb\u003eConditional Distribution\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 96.9%\u003cbr\u003edescription: A probability distribution over a random variable, given the value of another random variable.\u003cbr\u003ekeywords: [\u0027conditional distribution\u0027, \u0027event\u0027, \u0027given\u0027, \u0027probability distribution\u0027, \u0027probability\u0027, \u0027random\u0027, \u0027conditional\u0027, \u0027random variable\u0027, \u0027distribution\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l4\u0027, \u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106108841_w2_l8\u0027, \u0027lecture_106104233_w2_l10\u0027]"}, {"color": "#52b24e", "font": {"color": "white"}, "id": "concept_marginal_distribution", "label": "Marginal Distribution", "shape": "dot", "size": 15, "title": "\u003cb\u003eMarginal Distribution\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 93.5%\u003cbr\u003edescription: A probability distribution that describes the probability of a single random variable, obtained by integrating out other random variables from a joint distribution.\u003cbr\u003ekeywords: [\u0027distribution\u0027, \u0027marginal\u0027, \u0027probability distribution\u0027, \u0027random variable\u0027, \u0027random\u0027, \u0027variable\u0027, \u0027probability\u0027, \u0027marginal distribution\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l5\u0027, \u0027lecture_106108841_w1_l7\u0027, \u0027lecture_106108841_w4_l23\u0027]"}, {"color": "#98a1a1", "font": {"color": "white"}, "id": "concept_iid_assumption", "label": "Iid Assumption", "shape": "dot", "size": 15, "title": "\u003cb\u003eIid Assumption\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 1.5%\u003cbr\u003edescription: A fundamental assumption in machine learning that data points are independent and identically distributed.\u003cbr\u003ekeywords: [\u0027iid\u0027, \u0027independence\u0027, \u0027identical distribution\u0027, \u0027machine learning\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"color": "#3db057", "font": {"color": "white"}, "id": "concept_statistical_independence", "label": "Statistical Independence", "shape": "dot", "size": 15, "title": "\u003cb\u003eStatistical Independence\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 96.7%\u003cbr\u003edescription: A property of two or more events or random variables that are not affected by each other\u0027s occurrence or value.\u003cbr\u003ekeywords: [\u0027independence\u0027, \u0027statistics\u0027, \u0027probability\u0027, \u0027random variables\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"color": "#5cb34a", "font": {"color": "white"}, "id": "concept_identically_distributed_random_variables", "label": "Identically Distributed Random...", "shape": "dot", "size": 15, "title": "\u003cb\u003eIdentically Distributed Random Variables\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 92.1%\u003cbr\u003edescription: Random variables that have the same probability distribution.\u003cbr\u003ekeywords: [\u0027identical distribution\u0027, \u0027random variables\u0027, \u0027probability distribution\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"color": "#2bae5e", "font": {"color": "white"}, "id": "concept_generative_modeling", "label": "Generative Modeling", "shape": "dot", "size": 15, "title": "\u003cb\u003eGenerative Modeling\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 99.3%\u003cbr\u003edescription: A type of machine learning that involves learning to generate new data samples from a given distribution.\u003cbr\u003ekeywords: [\u0027generative modeling\u0027, \u0027machine learning\u0027, \u0027data generation\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"color": "#5cb34a", "font": {"color": "white"}, "id": "concept_discriminative_modeling", "label": "Discriminative Modeling", "shape": "dot", "size": 15, "title": "\u003cb\u003eDiscriminative Modeling\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 92.0%\u003cbr\u003edescription: A type of machine learning that involves learning to predict a target variable from a set of input variables.\u003cbr\u003ekeywords: [\u0027discriminative modeling\u0027, \u0027machine learning\u0027, \u0027prediction\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106108841_w1_l7\u0027]"}, {"color": "#43b154", "font": {"color": "white"}, "id": "concept_split_transaction_bus", "label": "Split Transaction Bus", "shape": "dot", "size": 15, "title": "\u003cb\u003eSplit Transaction Bus\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 95.8%\u003cbr\u003edescription: A type of bus that allows multiple transactions to be processed simultaneously.\u003cbr\u003ekeywords: [\u0027bus\u0027, \u0027transactions\u0027, \u0027multiprocessor\u0027, \u0027efficient\u0027, \u0027response\u0027, \u0027multiple\u0027, \u0027protocol\u0027, \u0027transaction\u0027, \u0027parallel\u0027, \u0027request\u0027, \u0027complexity\u0027, \u0027split\u0027, \u0027processing\u0027, \u0027performance\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w5_l30\u0027, \u0027lecture_106103359_w5_l35\u0027, \u0027lecture_106103359_w6_l36\u0027, \u0027lecture_106103359_w6_l37\u0027, \u0027lecture_106103359_w6_l38\u0027, \u0027lecture_106103359_w6_l39\u0027, \u0027lecture_106103359_w9_l60\u0027, \u0027lecture_106103359_w10_l67\u0027]"}, {"color": "#31af5b", "font": {"color": "white"}, "id": "concept_bus_arbitration", "label": "Bus Arbitration", "shape": "dot", "size": 15, "title": "\u003cb\u003eBus Arbitration\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 98.5%\u003cbr\u003edescription: The process of managing access to a shared bus in a multiprocessor system\u003cbr\u003ekeywords: [\u0027resolution\u0027, \u0027access\u0027, \u0027management\u0027, \u0027bus\u0027, \u0027arbitration\u0027, \u0027multiprocessor\u0027, \u0027conflict\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w5_l32\u0027, \u0027lecture_106103359_w5_l35\u0027, \u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#9a9f9e", "font": {"color": "white"}, "id": "concept_request_phase", "label": "Request Phase", "shape": "dot", "size": 15, "title": "\u003cb\u003eRequest Phase\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 2.7%\u003cbr\u003edescription: The phase of a transaction where the request is sent and the bus is arbitrated for\u003cbr\u003ekeywords: [\u0027bus\u0027, \u0027transaction\u0027, \u0027arbitration\u0027, \u0027request\u0027, \u0027split\u0027, \u0027phase\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w5_l35\u0027, \u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#31af5b", "font": {"color": "white"}, "id": "concept_response_phase", "label": "Response Phase", "shape": "dot", "size": 15, "title": "\u003cb\u003eResponse Phase\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 98.5%\u003cbr\u003edescription: The phase of a transaction where the response is sent and the data is transferred\u003cbr\u003ekeywords: [\u0027bus\u0027, \u0027transaction\u0027, \u0027response\u0027, \u0027transfer\u0027, \u0027split\u0027, \u0027phase\u0027, \u0027data\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w5_l35\u0027, \u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#2aae5e", "font": {"color": "white"}, "id": "concept_tag_matching", "label": "Tag Matching", "shape": "dot", "size": 15, "title": "\u003cb\u003eTag Matching\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 99.4%\u003cbr\u003edescription: A method for matching requests with responses in a split transaction bus, using a unique identifier or tag.\u003cbr\u003ekeywords: [\u0027tag\u0027, \u0027matching\u0027, \u0027request\u0027, \u0027response\u0027, \u0027split\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#2bae5e", "font": {"color": "white"}, "id": "concept_data_request_phase", "label": "Data Request Phase", "shape": "dot", "size": 15, "title": "\u003cb\u003eData Request Phase\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 99.4%\u003cbr\u003edescription: A phase in a split transaction bus where a device requests access to the data bus to send data.\u003cbr\u003ekeywords: [\u0027data\u0027, \u0027request\u0027, \u0027phase\u0027, \u0027split\u0027, \u0027transaction\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#67b446", "font": {"color": "white"}, "id": "concept_data_response_phase", "label": "Data Response Phase", "shape": "dot", "size": 15, "title": "\u003cb\u003eData Response Phase\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 90.5%\u003cbr\u003edescription: A phase in a split transaction bus where a device sends data on the data bus.\u003cbr\u003ekeywords: [\u0027data\u0027, \u0027response\u0027, \u0027phase\u0027, \u0027split\u0027, \u0027transaction\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#71b642", "font": {"color": "white"}, "id": "concept_turnaround_time", "label": "Turnaround Time", "shape": "dot", "size": 15, "title": "\u003cb\u003eTurnaround Time\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 89.0%\u003cbr\u003edescription: A period of time required between data transfers on a bus, to ensure proper bus operation.\u003cbr\u003ekeywords: [\u0027turnaround\u0027, \u0027time\u0027, \u0027bus\u0027, \u0027operation\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#96a3a4", "font": {"color": "white"}, "id": "concept_snoop_protocol", "label": "Snoop Protocol", "shape": "dot", "size": 15, "title": "\u003cb\u003eSnoop Protocol\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 0.7%\u003cbr\u003edescription: A protocol used in multiprocessor systems to maintain cache coherence, by monitoring bus transactions.\u003cbr\u003ekeywords: [\u0027snoop\u0027, \u0027protocol\u0027, \u0027multiprocessor\u0027, \u0027cache\u0027, \u0027coherence\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#36af59", "font": {"color": "white"}, "id": "concept_busupgr_request", "label": "BusUpgr Request", "shape": "dot", "size": 15, "title": "\u003cb\u003eBusUpgr Request\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 97.7%\u003cbr\u003edescription: A type of request in a split transaction bus, where a device requests an upgrade to a shared resource.\u003cbr\u003ekeywords: [\u0027busupgr\u0027, \u0027request\u0027, \u0027split\u0027, \u0027transaction\u0027, \u0027bus\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w6_l36\u0027]"}, {"color": "#48b152", "font": {"color": "white"}, "id": "concept_write_back_request", "label": "Write-Back Request", "shape": "dot", "size": 15, "title": "\u003cb\u003eWrite-Back Request\u003c/b\u003e\u003cbr\u003eType: V_concept\u003cbr\u003eRetention: 95.0%\u003cbr\u003edescription: A type of request in a split transaction bus, where a device requests to write data back to a shared resource.\u003cbr\u003ekeywords: [\u0027write-back\u0027, \u0027request\u0027, \u0027split\u0027, \u0027transaction\u0027, \u0027bus\u0027]\u003cbr\u003esource_lectures: [\u0027lecture_106103359_w6_l36\u0027]"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "#e74c3c", "from": "stream_computer_science_and_engineering", "title": "HAS_COURSE", "to": "course_106108841"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l1"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l2"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l3"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l4"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l5"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l6"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w1_l7"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w2_l8"}, {"arrows": "to", "color": "#3498db", "from": "course_106108841", "title": "HAS_LECTURE", "to": "lecture_106108841_w4_l23"}, {"arrows": "to", "color": "#e74c3c", "from": "stream_computer_science_and_engineering", "title": "HAS_COURSE", "to": "course_106103359"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w5_l30"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w5_l32"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w5_l35"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w6_l36"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w6_l37"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w6_l38"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w6_l39"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w9_l60"}, {"arrows": "to", "color": "#3498db", "from": "course_106103359", "title": "HAS_LECTURE", "to": "lecture_106103359_w10_l67"}, {"arrows": "to", "color": "#e74c3c", "from": "stream_computer_science_and_engineering", "title": "HAS_COURSE", "to": "course_106104233"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w1_l3"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w1_l5"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w1_l6"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w2_l8"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w2_l9"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w2_l10"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w2_l13"}, {"arrows": "to", "color": "#3498db", "from": "course_106104233", "title": "HAS_LECTURE", "to": "lecture_106104233_w4_l28"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l1", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_random_experiment"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l2", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l4", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_marginal_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_iid_assumption"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_statistical_independence"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_identically_distributed_random_variables"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_random_experiment"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_marginal_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_generative_modeling"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w1_l7", "title": "COVERS_CONCEPT", "to": "concept_discriminative_modeling"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w5_l30", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w5_l32", "title": "COVERS_CONCEPT", "to": "concept_bus_arbitration"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w5_l35", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w5_l35", "title": "COVERS_CONCEPT", "to": "concept_request_phase"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w5_l35", "title": "COVERS_CONCEPT", "to": "concept_response_phase"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w5_l35", "title": "COVERS_CONCEPT", "to": "concept_bus_arbitration"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_request_phase"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_response_phase"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_bus_arbitration"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_tag_matching"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_data_request_phase"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_data_response_phase"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_turnaround_time"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_snoop_protocol"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_busupgr_request"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l36", "title": "COVERS_CONCEPT", "to": "concept_write_back_request"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l37", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l38", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w6_l39", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w1_l3", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w1_l5", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_random_experiment"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w1_l6", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w2_l8", "title": "COVERS_CONCEPT", "to": "concept_sample_space"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w2_l9", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_conditional_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w2_l10", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w4_l23", "title": "COVERS_CONCEPT", "to": "concept_joint_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106108841_w4_l23", "title": "COVERS_CONCEPT", "to": "concept_marginal_distribution"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w9_l60", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106103359_w10_l67", "title": "COVERS_CONCEPT", "to": "concept_split_transaction_bus"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w2_l13", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}, {"arrows": "to", "color": "#9b59b6", "from": "lecture_106104233_w4_l28", "title": "COVERS_CONCEPT", "to": "concept_random_variable"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"barnesHut": {"gravitationalConstant": -8000, "centralGravity": 0.5, "springLength": 150, "springConstant": 0.04, "damping": 0.3, "avoidOverlap": 0.5}, "minVelocity": 0.75, "solver": "barnesHut", "stabilization": {"enabled": true, "iterations": 500, "updateInterval": 50}}, "interaction": {"hover": true, "tooltipDelay": 100, "navigationButtons": true, "keyboard": true}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    
+        <div id="mastery-legend">
+            <h4>Mastery Legend</h4>
+            <div><strong>Concepts:</strong></div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #95a5a6;"></div>
+                <span>Not studied</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-gradient" style="background: linear-gradient(to right, #95a5a6, #27ae60);"></div>
+                <span>Retention</span>
+            </div>
+            <div style="margin-top: 10px;"><strong>Lectures:</strong></div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #7f8c8d;"></div>
+                <span>Not started</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-gradient" style="background: linear-gradient(to right, #e74c3c, #27ae60);"></div>
+                <span>Completion</span>
+            </div>
+        </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Create toggle button
+                var btn = document.createElement('button');
+                btn.id = 'toolbar-toggle';
+                btn.innerHTML = '☰ Hide Controls';
+                btn.onclick = function() {
+                    var headers = document.querySelectorAll('.card-header');
+                    var body = document.body;
+                    var isHidden = body.classList.toggle('toolbar-hidden');
+                    headers.forEach(function(h) { h.classList.toggle('hidden'); });
+                    btn.innerHTML = isHidden ? '☰ Show Controls' : '☰ Hide Controls';
+                };
+                document.body.appendChild(btn);
+            });
+        </script>
+    </body>
+</html>
